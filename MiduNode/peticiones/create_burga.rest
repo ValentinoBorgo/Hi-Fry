@@ -1,0 +1,17 @@
+POST http://localhost:3001/api/hamburguesas 
+Content-Type : application/json
+ 
+# i sent the object for te post
+{
+    "content" : "Esto es una nueva burga",
+    "important" : true
+}
+
+# This example if for a request without a content
+###
+POST http://localhost:3001/api/hamburguesas 
+Content-Type : application/json
+ 
+# i sent the object for te post
+{
+}

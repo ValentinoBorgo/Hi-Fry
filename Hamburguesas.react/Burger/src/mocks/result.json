@@ -1,0 +1,28 @@
+{
+ "hamburguesas" : [
+    {
+        "id" : 1,
+        "burger" : "Doble ChesseBurger",
+        "img" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6mbUE1fMGlj_gc1qTBs6Gk8pdyR46UpmoF4DNWO21NKRKb5Le48bvnbKQZRhfa-UOtH0&usqp=CAU",
+        "price" : 1700
+    },
+    {
+        "id" : 2,
+        "burger" : "Trplie Baconator",
+        "img" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqAbNsyNJHQlpk3S03lyX9jcKyOL5FZINHZJD2so93XuyaiPtdHmDxV5a3k9RM7v4_PuM&usqp=CAU",
+        "price" : 2400
+    },
+    {
+        "id" : 3,
+        "burger" : "Classic",
+        "img" : "https://julieblanner.com/wp-content/uploads/2020/02/all-american-burger.jpg",
+        "price" : 2000
+    },
+    {
+        "id" : 4,
+        "burger" : "Blue ChesseBurger",
+        "img" : "https://www.derrickriches.com/wp-content/uploads/2017/09/Depositphotos_73953517_XL-scaled-e1655678858132.jpg",
+        "price" : 2200
+    }
+]
+}
