@@ -1,16 +1,17 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-export function UseBurger(){
 
-    const [datos, setData] = useState([]);
+export function GetBurger(){
+
+    const [datos, setDatos] = useState([]);
 
     
     const fetchData = async () => {
       try {
         const response = await fetch('http://localhost:3001/api/hamburguesas');
         const jsonData = await response.json();
-        setData(jsonData);
+        setDatos(jsonData);
       } catch (error) {
         console.log(error);
       }
@@ -19,9 +20,8 @@ export function UseBurger(){
 
     useEffect(() => {
       fetchData();
-      return(
-        datos
-      )
     }, []);
+
+    return {datos};
 
 }

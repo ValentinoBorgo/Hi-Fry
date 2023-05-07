@@ -21,25 +21,37 @@ let hamburguesas = [
         id : 1,
         burger : 'Doble ChesseBurger',
         img : 'https://andigital.com.ar/media/k2/items/cache/1d9e5fc5a4515a80b4e564048c2de0a6_XL.jpg',
-        price : 1700
+        price : 1700,
+        carnes : 2,
+        chedar : 4,
+        ingredientes : "salsa hi"
     },
     {
         id : 2,
         burger : 'Triple Baconator',
         img : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqAbNsyNJHQlpk3S03lyX9jcKyOL5FZINHZJD2so93XuyaiPtdHmDxV5a3k9RM7v4_PuM&usqp=CAU',
-        price : 2400
+        price : 2400,
+        carnes : 3,
+        chedar : 6,
+        ingredientes : ["ketchup ","bacon"]
     },
     {
         id : 3,
         burger : 'Classic',
         img : 'https://julieblanner.com/wp-content/uploads/2020/02/all-american-burger.jpg',
-        price : 2000
+        price : 2000,
+        carnes : 1,
+        chedar : 2,
+        ingredientes : ["lechuga ","tomate ","cebolla ","salsa hi"]
     },
     {
         id : 4,
         burger : 'Blue ChesseBurger',
         img : 'https://www.derrickriches.com/wp-content/uploads/2017/09/Depositphotos_73953517_XL-scaled-e1655678858132.jpg',
-        price : 2200
+        price : 2200,
+        carnes : 2,
+        chedar : "Queso azul",
+        ingredientes : "cebolla caramelizada"
     }
 ];
 

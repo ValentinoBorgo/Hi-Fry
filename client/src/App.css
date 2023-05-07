@@ -1,0 +1,18 @@
+:root{
+  --temaColor : rgb(252, 93, 93);
+  --white : rgb(255, 255, 255);
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+html{
+  background-color: var(--white);
+}
+h1{
+  text-align: center;
+}
+
+img{
+  width: 200px;
+  height: 200px;
+}
