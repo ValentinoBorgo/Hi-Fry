@@ -24,7 +24,7 @@ export function MostrarBurger({datos}) {
                     <li key={burga.id}>
                         <p>------------------------------------------</p>
                         <h3>🍟 + {burga.burger}</h3>
-                        <p>$ {burga.price}</p>
+                        <p>$ {burga.precio}</p>
                         <div>
                             <img src={burga.img} alt={burga.id} />
                         </div>
