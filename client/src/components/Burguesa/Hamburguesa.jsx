@@ -1,44 +1,42 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { GetBurgers } from "../../redux/actions/index";
+import { DestrucBurguesa } from "../DestrucBurguesa/DestrucBurguesa";
+import {getBurga} from '../../redux/reducer/reducer'
+
+export const Burger = ({Burgers}) => {
+
+    const dispatch = useDispatch();
+    const [carga, setCarga] = useState(true);
 
 
-export function MostrarBurger({datos}) {
-    
-    const [state, setState] = useState([]);
+    React.useEffect(() => {
+    GetBurgers().then(burga =>{
+        dispatch(getBurga(burga))
+    })
+    setTimeout(() => {
+        setCarga(false);    
+    },500)
+}, [dispatch]);
 
-    async function resolvPromise() {
-        try {
-            const data = await datos;
-            setState(data);
-        } catch (e) {
-            console.log(e);
-        }
+    if(carga) {
+        return <p>Cargando</p>
     }
 
-    resolvPromise();
-
-
     return (
-        <ul>
-            {!state ? <h1>Cargando...</h1> :
-                state.map(burga => (
-                    <li key={burga.id}>
-                        <p>------------------------------------------</p>
-                        <h3>🍟 + {burga.burger}</h3>
-                        <p>$ {burga.precio}</p>
-                        <div>
-                            <img src={burga.img} alt={burga.id} />
-                        </div>
-                        <strong>Carnes : {burga.carnes}</strong><br/>
-                        <strong>Chedar : {burga.chedar}</strong><br/>
-                        <strong>Ingredientes : {burga.ingredientes}</strong><br/>
-                        <div>
-                        <button>Agregar</button>
-                        <button>Modificar</button>
-                        </div>
-                    </li>
-                ))
-            }
-        </ul>
+        <article>
+            {Burgers?.map(h =>{
+                return(<DestrucBurguesa 
+                    id={h.id}
+                    burger={h.burger}
+                    precio={h.precio}
+                    img={h.img}
+                    carnes={h.carnes}
+                    chedar={h.chedar}
+                    ingredientes={h.ingredientes}
+                key={h.id} />)
+            })}
+        </article>
     )
 }
 
