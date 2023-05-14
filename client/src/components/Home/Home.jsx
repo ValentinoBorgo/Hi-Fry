@@ -2,25 +2,28 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Burger } from "../Burguesa/Hamburguesa";
 import { NavBar } from "../NavBar";
+import { Modal } from "../../ModalAgregado";
+import { ModificarHamburguesa } from "../FormModificarHamburguesa/index";
 
-export function Home(){
+
+export function Home() {
 
 
     const allBurgers = useSelector(state => state.burgers.allBurgers)
 
+    const modalModificar = useSelector(state => state.burgers.modificarAbierto);
 
-    // GetBurgers().then(burga =>{
-    //     dispatch(getBurga(burga))
-    // })
-    
-
-
-    // const burgas = dispatch(GetBurgers());
-
-    return(
+    return (
         <div>
-            <NavBar/>
-            <Burger Burgers={allBurgers}/>
+            <NavBar />
+            <Burger Burgers={allBurgers} />
+            {
+                modalModificar && (
+                    <Modal>
+                        <ModificarHamburguesa />
+                    </Modal>
+                )
+            }
         </div>
     )
 }

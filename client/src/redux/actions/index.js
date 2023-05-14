@@ -1,8 +1,6 @@
 import React from "react";
 import axios from "axios";
-
-
-export const GET_BURGERS = "GET_BURGERS";
+import { useState } from "react";
 
 
 export const GetBurgers = async () =>{
@@ -14,3 +12,16 @@ export const GetBurgers = async () =>{
       console.log(error);
     }
   }
+
+
+// export const useHamburguesas = () => {
+
+//   const [modificarAbierto, setModificar] = useState(false);
+
+//   let cambiarModificar = () =>{
+//       modificarAbierto;
+//   }
+
+//   return {setModificar, cambiarModificar, modificarAbierto}
+
+// }  

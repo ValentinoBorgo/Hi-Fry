@@ -1,8 +1,8 @@
-import { GET_BURGERS } from "../actions/index";
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     allBurgers : [],
+    modificarAbierto : false
 }
 
 export const rootReducer = createSlice({
@@ -11,12 +11,16 @@ export const rootReducer = createSlice({
     reducers : {
         getBurga : (state, action) =>{
             state.allBurgers = action.payload;
+        },
+
+        modalModificar : (state, action) =>{
+            state.modificarAbierto = action.payload;
         }
     }
 })
 
 
 
-export const { getBurga } = rootReducer.actions
+export const { getBurga, modalModificar } = rootReducer.actions
 
 export default rootReducer.reducer

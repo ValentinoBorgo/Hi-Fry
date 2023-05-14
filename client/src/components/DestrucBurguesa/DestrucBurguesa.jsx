@@ -3,6 +3,7 @@ import { ActionBtn } from "../ActionBtns";
 
 export function DestrucBurguesa({ id, burger, img, precio, carnes, chedar, ingredientes }) {
 
+
     return (
         <div>
             <p>------------------------------------------</p>
@@ -16,7 +17,7 @@ export function DestrucBurguesa({ id, burger, img, precio, carnes, chedar, ingre
                 <strong>Chedar : {chedar}</strong><br />
                 <strong>Ingredientes : {ingredientes}</strong><br />
             </div>
-            <ActionBtn/>
+            <ActionBtn />
         </div>
     )
 }

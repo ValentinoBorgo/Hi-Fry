@@ -19,6 +19,11 @@ app.use(cors({
     origin: 'http://localhost:5173'
 }));
 
+// app.use((req, res, next)=>{
+//     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+// })
+
+
 // This is a librari of expres for parsing the data from the method POST. 
 
 //my app use the routes
