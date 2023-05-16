@@ -12,16 +12,3 @@ export const GetBurgers = async () =>{
       console.log(error);
     }
   }
-
-
-// export const useHamburguesas = () => {
-
-//   const [modificarAbierto, setModificar] = useState(false);
-
-//   let cambiarModificar = () =>{
-//       modificarAbierto;
-//   }
-
-//   return {setModificar, cambiarModificar, modificarAbierto}
-
-// }  
