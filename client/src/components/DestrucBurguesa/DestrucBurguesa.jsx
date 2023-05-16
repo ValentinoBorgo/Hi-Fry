@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ActionBtn } from "../ActionBtns";
+import { useSelector } from "react-redux";
+
 
 export function DestrucBurguesa({ id, burger, img, precio, carnes, chedar, ingredientes }) {
+
+    let modificaciones = useSelector((state) => state.burgers.modificaciones);
+    const [state, setState] = useState([id, carnes, chedar,ingredientes]);
+
+    const cambiarBurga =  async () =>{
+        setState([
+             await modificaciones
+        ])
+    }
+
+    useEffect(() =>{
+        cambiarBurga();
+    }, [modificaciones])
 
 
     return (
@@ -17,7 +32,7 @@ export function DestrucBurguesa({ id, burger, img, precio, carnes, chedar, ingre
                 <strong>Chedar : {chedar}</strong><br />
                 <strong>Ingredientes : {ingredientes}</strong><br />
             </div>
-            <ActionBtn />
+            <ActionBtn props = {[id,burger,precio,carnes,chedar,ingredientes]} />
         </div>
     )
 }

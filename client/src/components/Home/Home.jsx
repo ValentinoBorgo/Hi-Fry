@@ -13,6 +13,8 @@ export function Home() {
 
     const modalModificar = useSelector(state => state.burgers.modificarAbierto);
 
+    let estadoMofidificaciones = useSelector(state => state.burgers.modificaciones);
+
     return (
         <div>
             <NavBar />

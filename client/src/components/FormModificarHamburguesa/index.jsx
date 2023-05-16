@@ -5,6 +5,7 @@ import './formModificar.css'
 
 export function ModificarHamburguesa() {
 
+    
     const dispatch = useDispatch();
 
     const stateModal = useSelector(state => state.burgers.modificarAbierto)
@@ -13,70 +14,63 @@ export function ModificarHamburguesa() {
         e.preventDefault();
         dispatch(modalModificar(!stateModal));
     }
+
+    const [datos, setDatos] = useState({
+        idM : '',
+        carnesM : '',
+        chedarM : '',
+        ingredientesM : ''
+    });
     
-    const carnes = document.getElementById('numCarnes');
-    const chedar = document.getElementById('numChedar');
-    const [contCarnes, setContCarnes] = useState(0);
-    const [contChedar, setContChedar] = useState(0);
-    const [ingredientes, setIngredientes] = useState('');
+    const [contCarnes, setContCarnes] = useState(datos.carnesM);
+    const [contChedar, setContChedar] = useState(datos.chedarM);
+    const [ingredientes, setIngredientes] = useState(datos.ingredientesM);
+    const [ides, setIds] = useState(datos.idM);
     
     const handleSumCarnes = (e) =>{
         e.preventDefault();
-        setContCarnes(contCarnes + 1);
+        setContCarnes(datos.carnesM++);
     }
 
     const handleRestCarnes = (e) =>{
         e.preventDefault();
         if(contCarnes > 0){
-            setContCarnes(contCarnes - 1);
+            setContCarnes(datos.carnesM--);
         }
     }
 
     const handleSumChedar = (e) =>{
         e.preventDefault();
-        setContChedar(contChedar + 1);
+        setContChedar(datos.chedarM++);
     }
 
     const handleRestChedar = (e) =>{
         e.preventDefault();
         if(contChedar > 0){
-            setContChedar(contChedar - 1);
+            setContChedar(datos.chedarM--);
         }
     }
-
-    const handleChange = (e) =>{
-        e.preventDefault();
-    }
-
-    const handleChangeChedar = (e) =>{
-        e.preventDefault();
-    }
-
-    
     
     const handleText = (e) =>{
         e.preventDefault();
-        setIngredientes(e.target.value);
-        console.log(ingredientes);
+        datos.ingredientesM = e.target.value;
     }
-
-    const [datos, setDatos] = useState({
-        carnes : '',
-        chedar : '',
-        ingredientes : ''
-    });
-
-    let estadoMofidificaciones = useSelector(state => state.burgers.modificaciones);
     
+    let ids = useSelector(state => state.burgers.ids);
+
     const handleSubmit = (e) =>{
         e.preventDefault();
+        setIds(datos.idM = ids)
         setDatos({
-            carnes : contCarnes,
-            chedar : contChedar,
-            ingredientes: ingredientes})
-            console.log(datos);
+            idM : ides,
+            carnesM : contCarnes,
+            chedarM : contChedar,
+            ingredientesM: ingredientes})
         dispatch(realizarModificaciones(datos))
+        dispatch(modalModificar(!stateModal));
+        alert('Hamburguesa modificada correctamente');
     }
+
     
     return (
         <form onSubmit={handleSubmit}>
@@ -84,13 +78,13 @@ export function ModificarHamburguesa() {
             <div className="divs">
                 <label>Carnes</label>
                 <button className="btns" onClick={(e) => handleSumCarnes(e)}>+</button>
-                <input id="numCarnes" type="number" onChange={(e) =>handleChange(e)} name="carnes" value={contCarnes}></input>
+                <input type="number" onChange={(e) =>handleChange(e)} name="carnes" value={datos.carnesM}></input>
                 <button className="btns" onClick={(e) => handleRestCarnes(e)}>-</button>
             </div>
             <div className="divs">
                 <label>Chedar</label>
                 <button className="btns" onClick={(e) => handleSumChedar(e)}>+</button>
-                <input id="numChedar" type="number" value={contChedar} name="chedar" onChange={(e) =>handleChangeChedar(e)}></input>
+                <input  type="number" value={datos.chedarM} name="chedar" onChange={(e) =>handleChange(e)}></input>
                 <button className="btns" onClick={(e) => handleRestChedar(e)}>-</button>
             </div>
             <div className="divs">
