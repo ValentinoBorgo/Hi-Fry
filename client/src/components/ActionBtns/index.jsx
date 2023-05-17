@@ -1,13 +1,15 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { buscarIds, modalModificar } from "../../redux/reducer/reducer";
+import { buscarIds, getBurgaM, idNoModificado, modalAgregar, modalModificar } from "../../redux/reducer/reducer";
 
 export function ActionBtn({props}){
 
     const dispatch = useDispatch();
 
     const stateModal = useSelector(state => state.burgers.modificarAbierto)
+
+    const stateModalAgregado = useSelector(state => state.burgers.modalAgregar)
 
     const handleCustom = (e) =>{
         e.preventDefault();
@@ -17,7 +19,9 @@ export function ActionBtn({props}){
 
     const handleAdd = (e) =>{
         e.preventDefault();
-        console.log(props[2]);
+        dispatch(modalAgregar(!stateModalAgregado))
+        dispatch(idNoModificado(props[0]))
+        // dispatch(getBurgaM(props[6]))
     }
 
     return(

@@ -4,7 +4,8 @@ import { Burger } from "../Burguesa/Hamburguesa";
 import { NavBar } from "../NavBar";
 import { Modal } from "../../ModalAgregado";
 import { ModificarHamburguesa } from "../FormModificarHamburguesa/index";
-
+import { ModalA } from "../../Modal";
+import { AgregarHamburguesa } from "../FormAgregado";
 
 export function Home() {
 
@@ -13,7 +14,9 @@ export function Home() {
 
     const modalModificar = useSelector(state => state.burgers.modificarAbierto);
 
-    let estadoMofidificaciones = useSelector(state => state.burgers.modificaciones);
+    const modalAgregar = useSelector(state => state.burgers.modalAgregar);
+
+    const burgersM = useSelector(state => state.burgers.burgaM);
 
     return (
         <div>
@@ -24,6 +27,13 @@ export function Home() {
                     <Modal>
                         <ModificarHamburguesa />
                     </Modal>
+                )
+            }
+            {
+                modalAgregar && (
+                    <ModalA>
+                        <AgregarHamburguesa burgersM={burgersM}/>
+                    </ModalA>
                 )
             }
         </div>

@@ -1,36 +1,58 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    allBurgers : [],
-    modificarAbierto : false,
-    modificaciones : [],
-    ids : ''
+    allBurgers: [],
+    burgaM: [],
+    modificarAbierto: false,
+    modalAgregar: false,
+    modificaciones: [],
+    ids: '',
+    idNoModificado: ''
 }
 
 export const rootReducer = createSlice({
-    name : 'burgers',
+    name: 'burgers',
     initialState,
-    reducers : {
-        getBurga : (state, action) =>{
+    reducers: {
+        getBurga: (state, action) => {
             state.allBurgers = action.payload;
         },
 
-        modalModificar : (state, action) =>{
+        getBurgaM: (state, action) => {
+            state.burgaM = action.payload;
+        },
+
+        modalModificar: (state, action) => {
             state.modificarAbierto = action.payload;
         },
 
-        realizarModificaciones : (state, action) =>{
+        realizarModificaciones: (state, action) => {
             state.modificaciones.push((action.payload));
         },
 
-        buscarIds : (state, action) =>{
+        buscarIds: (state, action) => {
             state.ids = action.payload;
+        },
+
+        modalAgregar: (state, action) => {
+            state.modalAgregar = action.payload;
+        },
+
+        idNoModificado: (state, action) => {
+            state.idNoModificado = action.payload;
         }
     }
 })
 
 
 
-export const { getBurga, modalModificar, realizarModificaciones, buscarIds } = rootReducer.actions
+export const {
+    getBurga,
+    getBurgaM,
+    modalModificar,
+    realizarModificaciones,
+    buscarIds,
+    modalAgregar,
+    idNoModificado } = rootReducer.actions
 
 export default rootReducer.reducer

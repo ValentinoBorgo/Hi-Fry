@@ -8,9 +8,9 @@ export function DestrucBurguesa({ id, burger, img, precio, carnes, chedar, ingre
     let modificaciones = useSelector((state) => state.burgers.modificaciones);
     const [state, setState] = useState([id, carnes, chedar,ingredientes]);
 
-    const cambiarBurga =  async () =>{
+    const cambiarBurga =  () =>{
         setState([
-             await modificaciones
+             modificaciones
         ])
     }
 
@@ -23,7 +23,7 @@ export function DestrucBurguesa({ id, burger, img, precio, carnes, chedar, ingre
         <div>
             <p>------------------------------------------</p>
             <h3>🍟 + {burger}</h3>
-            <p>$ {precio}</p>
+            <p>💰 {precio}</p>
             <div>
                 <img src={img} alt={id} />
             </div>
@@ -32,7 +32,7 @@ export function DestrucBurguesa({ id, burger, img, precio, carnes, chedar, ingre
                 <strong>Chedar : {chedar}</strong><br />
                 <strong>Ingredientes : {ingredientes}</strong><br />
             </div>
-            <ActionBtn props = {[id,burger,precio,carnes,chedar,ingredientes]} />
+            <ActionBtn props = {[id,burger,precio,carnes,chedar,ingredientes,state]} />
         </div>
     )
 }
