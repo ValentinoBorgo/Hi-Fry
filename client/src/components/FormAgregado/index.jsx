@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import './formAgregar.css'
 import { useDispatch, useSelector } from "react-redux";
 import { getBurgaM, modalAgregar, agendarPedido } from "../../redux/reducer/reducer";
@@ -21,6 +21,8 @@ export function AgregarHamburguesa({ burgersM }) {
     const pedidos = useSelector(state => state.burgers.pedidos);
 
     const ids = useSelector(state => state.burgers.ids);
+
+    let mostrarPedidos = document.getElementById('pedidos');
 
     let contadora = 0;
 
@@ -54,21 +56,36 @@ export function AgregarHamburguesa({ burgersM }) {
     const handleSubmit = (e) => {
         e.preventDefault();
         contadora++;
+        burgersM.map((b) =>{
+            if(b.id == idNoModificado){
+                // setEstadoPedido({
+                //     idPedido : b.id
+                // })
+                mostrarPedidos.innerHTML = estadoPedido;
+            }
+        })
+        dispatch(modalAgregar(!estadoModal))
         console.log(estadoPedido);
     }
 
 
     function organizarExtras(idNoModificado) {
-        console.log(contModificaciones);
-        console.log(ids);
         if (contModificaciones == -1) {
             return (
                 null
             )
         } else {
-            console.log(idNoModificado);
-            console.log(modificaciones[contModificaciones].idM);
             if (modificaciones[contModificaciones].idM == idNoModificado || modificaciones[contModificaciones].idM == ids) {
+                const clonarEstado = async () =>{
+                    useMemo(() =>{
+                        // RESOLVE : the state estatecomand is not responding for the acumulation of new tips
+                        const estadoClonado = {...estadoPedido};
+                        const nuevoTip = modificaciones[contModificaciones];
+                        estadoClonado.pedidos.push({nuevoTip})
+                        setEstadoPedido(estadoClonado)
+                    },[idNoModificado, contModificaciones])
+                }
+                clonarEstado();
                 return (
                     <>
                         <p>➕ extra carne x{modificaciones[contModificaciones].carnesM}</p>

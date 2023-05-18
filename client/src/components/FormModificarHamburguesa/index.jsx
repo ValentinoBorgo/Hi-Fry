@@ -69,7 +69,6 @@ export function ModificarHamburguesa() {
             ingredientesM: ingredientes})
         dispatch(realizarModificaciones(datos))
         dispatch(modalModificar(!stateModal));
-        alert('Hamburguesa modificada correctamente');
     }
 
     

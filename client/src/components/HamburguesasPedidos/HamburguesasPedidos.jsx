@@ -21,6 +21,8 @@ export default function HamburguesasPedidos() {
         <div>
             <div>
                 <h1>✔️ 1</h1>
+                <h2>Estado de pedido</h2>
+                <p id="pedidos"></p>
                 <button style={{border : '3px solid red'}}>Agendar Pedido</button>
             </div>
             <Burger Burgers={allBurgers} />

@@ -17,7 +17,7 @@ export const Burger = ({ Burgers }) => {
         setTimeout(() => {
             setCarga(false);
         }, 500)
-    }, [dispatch]);
+    }, [carga]);
 
     if (carga) {
         return <p>Cargando</p>
