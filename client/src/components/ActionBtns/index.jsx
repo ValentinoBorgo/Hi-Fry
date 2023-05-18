@@ -21,6 +21,7 @@ export function ActionBtn({props}){
         e.preventDefault();
         dispatch(modalAgregar(!stateModalAgregado))
         dispatch(idNoModificado(props[0]))
+        dispatch(buscarIds(props[0]))
         // dispatch(getBurgaM(props[6]))
     }
 

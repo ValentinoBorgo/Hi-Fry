@@ -19,6 +19,10 @@ export default function HamburguesasPedidos() {
 
     return (
         <div>
+            <div>
+                <h1>✔️ 1</h1>
+                <button style={{border : '3px solid red'}}>Agendar Pedido</button>
+            </div>
             <Burger Burgers={allBurgers} />
             {
                 modalModificar && (

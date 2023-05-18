@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { modalModificar, realizarModificaciones } from "../../redux/reducer/reducer";
+import { modalModificar, realizarModificaciones, contarModificaciones } from "../../redux/reducer/reducer";
 import './formModificar.css'
 
 export function ModificarHamburguesa() {
@@ -60,6 +60,7 @@ export function ModificarHamburguesa() {
 
     const handleSubmit = (e) =>{
         e.preventDefault();
+        dispatch(contarModificaciones(+ 1))
         setIds(datos.idM = ids)
         setDatos({
             idM : ides,

@@ -3,11 +3,13 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     allBurgers: [],
     burgaM: [],
+    modificaciones: [],
+    pedidos: [],
     modificarAbierto: false,
     modalAgregar: false,
-    modificaciones: [],
     ids: '',
-    idNoModificado: ''
+    idNoModificado: '',
+    contModificaciones: -1
 }
 
 export const rootReducer = createSlice({
@@ -40,6 +42,14 @@ export const rootReducer = createSlice({
 
         idNoModificado: (state, action) => {
             state.idNoModificado = action.payload;
+        },
+
+        agendarPedido: (state, action) => {
+            state.pedidos.push(action.payload);
+        },
+
+        contarModificaciones: (state, action) => {
+            state.contModificaciones += action.payload;
         }
     }
 })
@@ -53,6 +63,8 @@ export const {
     realizarModificaciones,
     buscarIds,
     modalAgregar,
-    idNoModificado } = rootReducer.actions
+    idNoModificado,
+    agendarPedido,
+    contarModificaciones } = rootReducer.actions
 
 export default rootReducer.reducer

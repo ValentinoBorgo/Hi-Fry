@@ -11,7 +11,11 @@ export function NavBar(){
                             Home
                         </NavLink>
                     </li>
-                    <li>Pedidos</li>
+                    <li>
+                        <NavLink to='/pedidos'>
+                            Pedidos
+                        </NavLink>
+                    </li>
                     <li>
                     <NavLink to='/hamburguesas'>
                         Hamburguesas
