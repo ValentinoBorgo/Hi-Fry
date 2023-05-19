@@ -20,7 +20,6 @@ export function AgregarHamburguesa({ burgersM }) {
 
     const ids = useSelector(state => state.burgers.ids);
 
-    const pedidos = useSelector(state => state.burgers.pedidos);
 
     let mostrarPedidos = document.getElementById('pedidos');
 
@@ -68,10 +67,7 @@ export function AgregarHamburguesa({ burgersM }) {
         dispatch(modalAgregar(!estadoModal))
         console.log("Estado Pedido");
         console.log(estadoPedido);
-        dispatch(agendarPedido(estadoPedido))
-
         // Mostar estos pedidos en otro lado
-        console.log(pedidos);
     }
     
     function organizarExtras(idNoModificado) {
@@ -86,7 +82,12 @@ export function AgregarHamburguesa({ burgersM }) {
                     const estadoClonado = { ...estadoPedido };
                     console.log("-----------------------------------------------");
                     const nuevoTip = modificaciones[contModificaciones];
-                    estadoClonado.pedidos.push( nuevoTip )
+                    for(let i=0; i < 4; i++){
+                        if(estadoClonado.pedidos[i] != ''){
+                            estadoClonado.pedidos.push({...estadoPedido.pedidos, nuevoTip})
+                            break;
+                        }
+                    }
                     console.log("+++++++++++++++++++++++++++++++++++++++++++++++");
                     console.log(estadoClonado);
                     setEstadoPedido(estadoClonado)
