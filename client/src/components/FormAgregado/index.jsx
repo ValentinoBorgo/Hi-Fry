@@ -18,9 +18,9 @@ export function AgregarHamburguesa({ burgersM }) {
 
     const contModificaciones = useSelector(state => state.burgers.contModificaciones);
 
-    const pedidos = useSelector(state => state.burgers.pedidos);
-
     const ids = useSelector(state => state.burgers.ids);
+
+    const pedidos = useSelector(state => state.burgers.pedidos);
 
     let mostrarPedidos = document.getElementById('pedidos');
 
@@ -32,6 +32,7 @@ export function AgregarHamburguesa({ burgersM }) {
         comentarios: '',
         pedidos: []
     });
+
 
 
     if (idM != '' && idM == idNoModificado) {
@@ -55,20 +56,24 @@ export function AgregarHamburguesa({ burgersM }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        contadora++;
-        burgersM.map((b) =>{
-            if(b.id == idNoModificado){
-                // setEstadoPedido({
-                //     idPedido : b.id
-                // })
-                mostrarPedidos.innerHTML = estadoPedido;
-            }
-        })
+        // contadora++;
+        // burgersM.map((b) => {
+        //     if (b.id == idNoModificado) {
+        //         // setEstadoPedido({
+        //         //     idPedido : b.id
+        //         // })
+        //         mostrarPedidos.innerHTML = estadoPedido;
+        //     }
+        // })
         dispatch(modalAgregar(!estadoModal))
+        console.log("Estado Pedido");
         console.log(estadoPedido);
+        dispatch(agendarPedido(estadoPedido))
+
+        // Mostar estos pedidos en otro lado
+        console.log(pedidos);
     }
-
-
+    
     function organizarExtras(idNoModificado) {
         if (contModificaciones == -1) {
             return (
@@ -76,16 +81,18 @@ export function AgregarHamburguesa({ burgersM }) {
             )
         } else {
             if (modificaciones[contModificaciones].idM == idNoModificado || modificaciones[contModificaciones].idM == ids) {
-                const clonarEstado = async () =>{
-                    useMemo(() =>{
-                        // RESOLVE : the state estatecomand is not responding for the acumulation of new tips
-                        const estadoClonado = {...estadoPedido};
-                        const nuevoTip = modificaciones[contModificaciones];
-                        estadoClonado.pedidos.push({nuevoTip})
-                        setEstadoPedido(estadoClonado)
-                    },[idNoModificado, contModificaciones])
-                }
-                clonarEstado();
+                useMemo(() => {
+                    // RESOLVE : the state estatecomand is not responding for the acumulation of new tips
+                    const estadoClonado = { ...estadoPedido };
+                    console.log("-----------------------------------------------");
+                    const nuevoTip = modificaciones[contModificaciones];
+                    estadoClonado.pedidos.push( nuevoTip )
+                    console.log("+++++++++++++++++++++++++++++++++++++++++++++++");
+                    console.log(estadoClonado);
+                    setEstadoPedido(estadoClonado)
+                    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+                    console.log(estadoPedido);
+                }, [modificaciones, idNoModificado, ids, pedidos])
                 return (
                     <>
                         <p>➕ extra carne x{modificaciones[contModificaciones].carnesM}</p>

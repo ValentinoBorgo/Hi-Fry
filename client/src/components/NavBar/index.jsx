@@ -7,7 +7,7 @@ export function NavBar(){
             <nav>
                 <ul>
                     <li>
-                        <NavLink to='/home'>
+                        <NavLink to='/'>
                             Home
                         </NavLink>
                     </li>
