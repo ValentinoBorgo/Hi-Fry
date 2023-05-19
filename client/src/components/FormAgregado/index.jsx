@@ -20,10 +20,10 @@ export function AgregarHamburguesa({ burgersM }) {
 
     const ids = useSelector(state => state.burgers.ids);
 
+    const pedidos = useSelector(state => state.burgers.pedidos);
 
     let mostrarPedidos = document.getElementById('pedidos');
 
-    let contadora = 0;
 
     const [estadoPedido, setEstadoPedido] = useState({
         idPedido: '',
@@ -67,9 +67,12 @@ export function AgregarHamburguesa({ burgersM }) {
         dispatch(modalAgregar(!estadoModal))
         console.log("Estado Pedido");
         console.log(estadoPedido);
+        console.log("Estado ARRAY PEDIDOS");
+        console.log(estadoPedido.pedidos);
+        console.log(contModificaciones);
         // Mostar estos pedidos en otro lado
     }
-    
+
     function organizarExtras(idNoModificado) {
         if (contModificaciones == -1) {
             return (
@@ -78,22 +81,16 @@ export function AgregarHamburguesa({ burgersM }) {
         } else {
             if (modificaciones[contModificaciones].idM == idNoModificado || modificaciones[contModificaciones].idM == ids) {
                 useMemo(() => {
-                    // RESOLVE : the state estatecomand is not responding for the acumulation of new tips
                     const estadoClonado = { ...estadoPedido };
-                    console.log("-----------------------------------------------");
                     const nuevoTip = modificaciones[contModificaciones];
-                    for(let i=0; i < 4; i++){
-                        if(estadoClonado.pedidos[i] != ''){
-                            estadoClonado.pedidos.push({...estadoPedido.pedidos, nuevoTip})
-                            break;
-                        }
-                    }
+                    console.log("-----------------------------------------------");
+                    estadoClonado.pedidos[contModificaciones] = ({nuevoTip})
                     console.log("+++++++++++++++++++++++++++++++++++++++++++++++");
                     console.log(estadoClonado);
                     setEstadoPedido(estadoClonado)
                     console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
                     console.log(estadoPedido);
-                }, [modificaciones, idNoModificado, ids, pedidos])
+                }, [contModificaciones])
                 return (
                     <>
                         <p>➕ extra carne x{modificaciones[contModificaciones].carnesM}</p>
