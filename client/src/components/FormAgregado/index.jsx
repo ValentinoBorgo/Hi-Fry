@@ -25,12 +25,12 @@ export function AgregarHamburguesa({ burgersM }) {
     let mostrarPedidos = document.getElementById('pedidos');
 
 
-    const [estadoPedido, setEstadoPedido] = useState({
+    let estadoPedido = {
         idPedido: '',
         nombreCliente: '',
         comentarios: '',
         pedidos: []
-    });
+    };
 
 
 
@@ -55,6 +55,28 @@ export function AgregarHamburguesa({ burgersM }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // useMemo(() => {
+        let estadoClonado = estadoPedido ;
+        const nuevoTip = modificaciones[contModificaciones];
+        console.log("-----------------------------------------------");
+        for (let i = 0; i <= contModificaciones; i++) {
+            if(estadoClonado.pedidos[i] != nuevoTip){
+                estadoClonado.pedidos.push(nuevoTip);
+                estadoPedido.pedidos = estadoClonado.pedidos;
+            }
+        }
+        estadoClonado.nombreCliente = 'YAYO'
+        estadoClonado.comentarios = 'PUTosssss'
+        console.log("+++++++++++++++++++++++++++++++++++++++++++++++");
+        console.log(estadoClonado);
+        // setEstadoPedido({
+        //     pedidos: [...estadoClonado.pedidos]
+        // })
+        console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+        console.log(estadoClonado.pedidos);
+        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        console.log(estadoPedido);
+        // }, [contModificaciones])
         // contadora++;
         // burgersM.map((b) => {
         //     if (b.id == idNoModificado) {
@@ -80,17 +102,17 @@ export function AgregarHamburguesa({ burgersM }) {
             )
         } else {
             if (modificaciones[contModificaciones].idM == idNoModificado || modificaciones[contModificaciones].idM == ids) {
-                useMemo(() => {
-                    const estadoClonado = { ...estadoPedido };
-                    const nuevoTip = modificaciones[contModificaciones];
-                    console.log("-----------------------------------------------");
-                    estadoClonado.pedidos[contModificaciones] = ({nuevoTip})
-                    console.log("+++++++++++++++++++++++++++++++++++++++++++++++");
-                    console.log(estadoClonado);
-                    setEstadoPedido(estadoClonado)
-                    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-                    console.log(estadoPedido);
-                }, [contModificaciones])
+                // useMemo(() => {
+                //     const estadoClonado = { ...estadoPedido };
+                //     const nuevoTip = modificaciones[contModificaciones];
+                //     console.log("-----------------------------------------------");
+                //     estadoClonado.pedidos[contModificaciones] = ({nuevoTip})
+                //     console.log("+++++++++++++++++++++++++++++++++++++++++++++++");
+                //     console.log(estadoClonado);
+                //     setEstadoPedido(estadoClonado)
+                //     console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+                //     console.log(estadoPedido);
+                // }, [contModificaciones])
                 return (
                     <>
                         <p>➕ extra carne x{modificaciones[contModificaciones].carnesM}</p>
