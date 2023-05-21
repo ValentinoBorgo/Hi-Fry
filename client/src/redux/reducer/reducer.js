@@ -4,9 +4,10 @@ const initialState = {
     allBurgers: [],
     burgaM: [],
     modificaciones: [],
-    pedidos: [],
+    pedidos: '',
     modificarAbierto: false,
     modalAgregar: false,
+    modalAgendar: false,
     ids: '',
     idNoModificado: '',
     contModificaciones: -1
@@ -45,11 +46,15 @@ export const rootReducer = createSlice({
         },
 
         agendarPedido: (state, action) => {
-            state.pedidos.push(action.payload);
+            state.pedidos = action.payload;
         },
 
         contarModificaciones: (state, action) => {
             state.contModificaciones += action.payload;
+        },
+
+        modalAgendar: (state, action) => {
+            state.modalAgendar = action.payload
         }
     }
 })
@@ -65,6 +70,7 @@ export const {
     modalAgregar,
     idNoModificado,
     agendarPedido,
-    contarModificaciones } = rootReducer.actions
+    contarModificaciones,
+    modalAgendar } = rootReducer.actions
 
 export default rootReducer.reducer

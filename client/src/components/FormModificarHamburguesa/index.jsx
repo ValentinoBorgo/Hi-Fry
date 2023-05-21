@@ -1,31 +1,43 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { modalModificar, realizarModificaciones, contarModificaciones } from "../../redux/reducer/reducer";
 import './formModificar.css'
+import { GetBurgersM } from "../../redux/actions";
 
 export function ModificarHamburguesa() {
-
+    
     
     const dispatch = useDispatch();
-
+    
     const stateModal = useSelector(state => state.burgers.modificarAbierto)
     
     const cancel = (e) => {
         e.preventDefault();
         dispatch(modalModificar(!stateModal));
     }
-
+    
     const [datos, setDatos] = useState({
         idM : '',
+        burgerM : '',
         carnesM : '',
         chedarM : '',
         ingredientesM : ''
     });
     
+    let ids = useSelector(state => state.burgers.ids);
+    
     const [contCarnes, setContCarnes] = useState(datos.carnesM);
     const [contChedar, setContChedar] = useState(datos.chedarM);
-    const [ingredientes, setIngredientes] = useState(datos.ingredientesM);
+    const ingredientes= datos.ingredientesM;
     const [ides, setIds] = useState(datos.idM);
+    const datBurger = datos.burgerM;
+
+    useMemo(() =>{
+        GetBurgersM(ids).then((value) =>{
+            let {burger} = value[0];
+            datos.burgerM = burger
+        })
+    },[ids])
     
     const handleSumCarnes = (e) =>{
         e.preventDefault();
@@ -56,7 +68,6 @@ export function ModificarHamburguesa() {
         datos.ingredientesM = e.target.value;
     }
     
-    let ids = useSelector(state => state.burgers.ids);
 
     const handleSubmit = (e) =>{
         e.preventDefault();
@@ -64,6 +75,7 @@ export function ModificarHamburguesa() {
         setIds(datos.idM = ids)
         setDatos({
             idM : ides,
+            burgerM : datBurger,
             carnesM : contCarnes,
             chedarM : contChedar,
             ingredientesM: ingredientes})

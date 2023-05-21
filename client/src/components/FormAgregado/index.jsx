@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import './formAgregar.css'
 import { useDispatch, useSelector } from "react-redux";
-import { getBurgaM, modalAgregar, agendarPedido } from "../../redux/reducer/reducer";
+import { getBurgaM, modalAgregar, modalAgendar, agendarPedido } from "../../redux/reducer/reducer";
 import { GetBurgersM } from "../../redux/actions";
 
 export function AgregarHamburguesa({ burgersM }) {
@@ -25,12 +25,7 @@ export function AgregarHamburguesa({ burgersM }) {
     let mostrarPedidos = document.getElementById('pedidos');
 
 
-    const [estadoPedido, setEstadoPedido] = useState({
-        idPedido: '',
-        nombreCliente: '',
-        comentarios: '',
-        pedidos: []
-    });
+    const [ListaPedido, setListaPedido] = useState([]);
 
 
 
@@ -55,18 +50,9 @@ export function AgregarHamburguesa({ burgersM }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // contadora++;
-        // burgersM.map((b) => {
-        //     if (b.id == idNoModificado) {
-        //         // setEstadoPedido({
-        //         //     idPedido : b.id
-        //         // })
-        //         mostrarPedidos.innerHTML = estadoPedido;
-        //     }
-        // })
         dispatch(modalAgregar(!estadoModal))
-        // Mostar estos pedidos en otro lado
-        console.log(estadoPedido);
+        dispatch(agendarPedido([...ListaPedido]))
+        console.log(ListaPedido);
     }
 
     function organizarExtras(idNoModificado) {
@@ -77,10 +63,8 @@ export function AgregarHamburguesa({ burgersM }) {
         } else {
             if (modificaciones[contModificaciones].idM == idNoModificado || modificaciones[contModificaciones].idM == ids) {
                 useMemo(() => {
-                    const estadoClonado = { ...estadoPedido };
                     const nuevoTip = modificaciones;
-                    estadoClonado.pedidos = (nuevoTip)
-                    setEstadoPedido(estadoClonado)
+                    setListaPedido([...nuevoTip])
                 }, [contModificaciones])
                 return (
                     <>

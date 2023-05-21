@@ -1,0 +1,19 @@
+.Agendar{
+    width: 100%;
+    max-width: 500px;
+    background-color: #fff;
+    padding: 33px 40px;
+    flex-direction: column;
+    font-size: larger;
+    font-family: 'Rubik', sans-serif;
+    font-weight: bold;
+    border: 2px solid red;
+    border-radius: 1rem;
+    color: black;
+}
+
+.div{
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+}

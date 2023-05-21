@@ -4,7 +4,9 @@ import { Burger } from "../Burguesa/Hamburguesa";
 import { Modal } from "../../ModalAgregado";
 import { ModificarHamburguesa } from "../FormModificarHamburguesa/index";
 import { ModalA } from "../../Modal";
-import { AgregarHamburguesa } from "../FormAgregado";
+import { AgregarHamburguesa} from "../FormAgregado";
+import { ModalAgendar } from "../../ModalAgendar";
+import { EstadoPedido, FormAgendar } from "../EstadoPedido";
 
 export default function HamburguesasPedidos() {
 
@@ -17,14 +19,11 @@ export default function HamburguesasPedidos() {
 
     const burgersM = useSelector(state => state.burgers.burgaM);
 
+    const modalAgendar = useSelector(state => state.burgers.modalAgendar);
+
     return (
         <div>
-            <div>
-                <h1>✔️ 1</h1>
-                <h2>Estado de pedido</h2>
-                <p id="pedidos"></p>
-                <button style={{border : '3px solid red'}}>Agendar Pedido</button>
-            </div>
+            <EstadoPedido />
             <Burger Burgers={allBurgers} />
             {
                 modalModificar && (
@@ -38,6 +37,13 @@ export default function HamburguesasPedidos() {
                     <ModalA>
                         <AgregarHamburguesa burgersM={burgersM}/>
                     </ModalA>
+                )
+            }
+            {
+                modalAgendar && (
+                    <ModalAgendar>
+                        <FormAgendar />   
+                    </ModalAgendar>
                 )
             }
         </div>
