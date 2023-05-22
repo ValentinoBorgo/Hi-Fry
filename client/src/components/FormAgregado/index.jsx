@@ -51,30 +51,41 @@ export function AgregarHamburguesa({ burgersM }) {
         console.log(ListaPedido);
     }
 
+    function modificarLista(){
+        useMemo(() =>{
+            GetBurgersM(idM).then((value) => {
+                const {id, burger, chedar, carnes, ingredientes} = value[0];
+                const nuevo = {id, burger, carnes, chedar, ingredientes};
+                const estado = [...ListaPedido];
+                estado.push(nuevo)
+                setListaPedido(estado)
+            })
+        },[])
+        return (
+            null
+        )
+    }
+
     function organizarExtras(idNoModificado) {
-        // one condition mor for entry to the estructure
+        // one condition more for entry to the estructure.
         if (contModificaciones == -1) {
-            useMemo(() =>{
-                GetBurgersM(idM).then((value) => {
-                    const {id, burger, chedar, carnes, ingredientes} = value[0];
-                    const nuevo = {id, burger, carnes, chedar, ingredientes};
-                    const estado = [...ListaPedido];
-                    estado.push(nuevo)
-                    setListaPedido(estado)
-                })
-            },[])
-            return (
-                null
-            )
+            modificarLista();
         } else {
             if (modificaciones[contModificaciones].idM == idNoModificado) {
-                console.log(idNoModificado);
                 useMemo(() => {
-                    const nuevoTip = modificaciones;
+                    // bug repeat the nuevo tips.
                     const estadoMod = [...ListaPedido];
-                    estadoMod.push(...nuevoTip)
+                    const nuevoTip = modificaciones;
+                    let obj;
+                    for(let i = 0; i < nuevoTip.length; i++){
+                        obj = nuevoTip[i];
+                    }
+                    estadoMod.push(obj)
                     setListaPedido(estadoMod)
                 }, [contModificaciones])
+                // idNoModificado = '';
+                // Fix bug, when the form is closed, the information persists and my idea is,
+                // that info deleted.
                 return (
                     <>
                         <p>➕ extra carne x{modificaciones[contModificaciones].carnesM}</p>
@@ -84,9 +95,7 @@ export function AgregarHamburguesa({ burgersM }) {
                 )
             }else {
                 console.log("No entras");
-                return (
-                    null
-                )
+                modificarLista();
             }
         }
     }
