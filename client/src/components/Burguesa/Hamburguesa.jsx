@@ -15,7 +15,7 @@ export const Burger = ({ Burgers }) => {
             dispatch(getBurga(burga))
         })
         setTimeout(() => {
-            setCarga(false);
+            setCarga(false);    
         }, 500)
     }, [dispatch]);
 

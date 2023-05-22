@@ -18,14 +18,10 @@ export function AgregarHamburguesa({ burgersM }) {
 
     const contModificaciones = useSelector(state => state.burgers.contModificaciones);
 
-    const ids = useSelector(state => state.burgers.ids);
-
-    const pedidos = useSelector(state => state.burgers.pedidos);
-
-    let mostrarPedidos = document.getElementById('pedidos');
+    const pedidos = useSelector(state => state.burgers.pedidos)
 
 
-    const [ListaPedido, setListaPedido] = useState([]);
+    const [ListaPedido, setListaPedido] = useState(pedidos);
 
 
 
@@ -56,15 +52,28 @@ export function AgregarHamburguesa({ burgersM }) {
     }
 
     function organizarExtras(idNoModificado) {
+        // one condition mor for entry to the estructure
         if (contModificaciones == -1) {
+            useMemo(() =>{
+                GetBurgersM(idM).then((value) => {
+                    const {id, burger, chedar, carnes, ingredientes} = value[0];
+                    const nuevo = {id, burger, carnes, chedar, ingredientes};
+                    const estado = [...ListaPedido];
+                    estado.push(nuevo)
+                    setListaPedido(estado)
+                })
+            },[])
             return (
                 null
             )
         } else {
-            if (modificaciones[contModificaciones].idM == idNoModificado || modificaciones[contModificaciones].idM == ids) {
+            if (modificaciones[contModificaciones].idM == idNoModificado) {
+                console.log(idNoModificado);
                 useMemo(() => {
                     const nuevoTip = modificaciones;
-                    setListaPedido([...nuevoTip])
+                    const estadoMod = [...ListaPedido];
+                    estadoMod.push(...nuevoTip)
+                    setListaPedido(estadoMod)
                 }, [contModificaciones])
                 return (
                     <>
@@ -73,7 +82,8 @@ export function AgregarHamburguesa({ burgersM }) {
                         <p>➕ ingredientes/comentarios : {modificaciones[contModificaciones].ingredientesM}</p>
                     </>
                 )
-            } else {
+            }else {
+                console.log("No entras");
                 return (
                     null
                 )

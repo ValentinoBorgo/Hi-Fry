@@ -8,8 +8,6 @@ export function EstadoPedido() {
 
     const modalAbierto = useSelector(state => state.burgers.modalAgendar);
 
-    const pedido = useSelector(state => state.burgers.pedidos);
-
     const dispatch = useDispatch();
 
 
@@ -17,7 +15,6 @@ export function EstadoPedido() {
         e.preventDefault();
         dispatch(modalAgendar(!modalAbierto))
         console.log("---------------------------------------------------");
-        console.log(pedido);
     }
 
     return (
@@ -39,9 +36,12 @@ export function FormAgendar() {
 
     const dispatch = useDispatch();
 
+    const pedido = useSelector(state => state.burgers.pedidos)
+
     const cancel = (e) => {
         e.preventDefault();
         dispatch(modalAgendar(!modalAgendar))
+        console.log(pedido);
     }
 
     return (
@@ -59,6 +59,21 @@ export function FormAgendar() {
                     <option value="">Delivery</option>
                     <option value="">Comer en el local</option>
                 </select>
+            </div>
+            <div>
+                <label>Lista Pedidos : </label>
+                <ul>
+                {
+                    pedido?.map(p =>(
+                        <li key={p.idM || p.id} className="listaPedi">
+                            <strong>{p.burgerM || p.burger} /</strong>
+                            <strong>{p.carnesM || p.carnes} /</strong>
+                            <strong>{p.chedarM || p.chedar} /</strong>
+                            <strong>{p.ingredientesM || p.ingredientes} </strong>
+                        </li>
+                    ))
+                }
+                </ul>
             </div>
         </form>
     )
