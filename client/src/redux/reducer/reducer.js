@@ -10,7 +10,8 @@ const initialState = {
     modalAgendar: false,
     ids: '',
     idNoModificado: '',
-    contModificaciones: -1
+    contModificaciones: -1,
+    Comandas: []
 }
 
 export const rootReducer = createSlice({
@@ -55,6 +56,10 @@ export const rootReducer = createSlice({
 
         modalAgendar: (state, action) => {
             state.modalAgendar = action.payload
+        },
+
+        agregarComanda: (state, action) => {
+            state.Comandas.push(action.payload);
         }
     }
 })
@@ -71,6 +76,7 @@ export const {
     idNoModificado,
     agendarPedido,
     contarModificaciones,
-    modalAgendar } = rootReducer.actions
+    modalAgendar,
+    agregarComanda } = rootReducer.actions
 
 export default rootReducer.reducer

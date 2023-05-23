@@ -17,3 +17,17 @@
     text-align: center;
     justify-content: space-between;
 }
+
+.Tabla{
+    font-size: medium;
+    border: 1px solid black;
+}
+
+.Tabla tr{
+    border: 1px solid black;
+}
+
+.Tabla th{
+    border: 1px solid black;
+}
+
