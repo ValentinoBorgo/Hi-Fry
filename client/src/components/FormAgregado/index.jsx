@@ -48,44 +48,40 @@ export function AgregarHamburguesa({ burgersM }) {
         e.preventDefault();
         dispatch(modalAgregar(!estadoModal))
         dispatch(agendarPedido([...ListaPedido]))
-        console.log(ListaPedido);
     }
 
-    function modificarLista(){
-        useMemo(() =>{
+    function modificarLista() {
+        useMemo(() => {
             GetBurgersM(idM).then((value) => {
-                const {id, burger, chedar, carnes, ingredientes} = value[0];
-                const nuevo = {id, burger, carnes, chedar, ingredientes};
+                const { id, burger, chedar, carnes, ingredientes } = value[0];
+                const nuevo = { id, burger, carnes, chedar, ingredientes };
                 const estado = [...ListaPedido];
                 estado.push(nuevo)
                 setListaPedido(estado)
             })
-        },[])
+        }, [])
         return (
             null
         )
     }
 
     function organizarExtras(idNoModificado) {
-        // one condition more for entry to the estructure.
-        if (contModificaciones == -1) {
+        if (contModificaciones == -1) { 
+            modificarLista();
+        } else if (modificaciones[contModificaciones] == pedidos[pedidos.length-1]) {
             modificarLista();
         } else {
             if (modificaciones[contModificaciones].idM == idNoModificado) {
                 useMemo(() => {
-                    // bug repeat the nuevo tips.
                     const estadoMod = [...ListaPedido];
                     const nuevoTip = modificaciones;
                     let obj;
-                    for(let i = 0; i < nuevoTip.length; i++){
+                    for (let i = 0; i < nuevoTip.length; i++) {
                         obj = nuevoTip[i];
                     }
                     estadoMod.push(obj)
                     setListaPedido(estadoMod)
                 }, [contModificaciones])
-                // idNoModificado = '';
-                // Fix bug, when the form is closed, the information persists and my idea is,
-                // that info deleted.
                 return (
                     <>
                         <p>➕ extra carne x{modificaciones[contModificaciones].carnesM}</p>
@@ -93,8 +89,7 @@ export function AgregarHamburguesa({ burgersM }) {
                         <p>➕ ingredientes/comentarios : {modificaciones[contModificaciones].ingredientesM}</p>
                     </>
                 )
-            }else {
-                console.log("No entras");
+            } else {
                 modificarLista();
             }
         }
