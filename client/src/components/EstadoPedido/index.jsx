@@ -1,4 +1,4 @@
-import { modalAgendar } from "../../redux/reducer/reducer";
+import { modalAgendar, agendarPedido } from "../../redux/reducer/reducer";
 import { useDispatch, useSelector } from "react-redux";
 import './formAgendar.css'
 import { useMemo, useState } from "react";
@@ -39,41 +39,53 @@ export function FormAgendar() {
 
     const pedido = useSelector(state => state.burgers.pedidos)
 
+    const ids = useSelector(state => state.burgers.ids);
+
+    const idNoModificado = useSelector(state => state.burgers.idNoModificado);
+
     const [estadoPedido, setEstadoPedido] = useState(pedido)
     
-    let [sumaTotal, setSumaTotal] = useState(0);
+    let suma = 0;
+
+    const [sumaTotal, setSumaTotal] = useState(suma);
+
 
     const cancel = (e) => {
         e.preventDefault();
         dispatch(modalAgendar(!modalAgendar))
+        dispatch(agendarPedido([...estadoPedido]))
     }
 
     const handleDelete = (e, idM, id) =>{
         e.preventDefault();
-        console.log(pedido.length);
         for(let i = 0; i < pedido.length; i++){
-            let actualizarPedido = estadoPedido.filter(p => p.id != id || p.idM != idM);
+            const actualizacion = [...estadoPedido];
+            let actualizarPedido = actualizacion.filter(p => p.id != id || p.idM != idM);
             setEstadoPedido(actualizarPedido);
         }
-        // console.log("Pedido");
-        // console.log(pedido);
-        console.log("Estado Pedido");
-        console.log(estadoPedido);
-        console.log("Actualizacion");
-        console.log(estadoPedido);
+        dispatch(agendarPedido([...estadoPedido]))
     }
 
-    function calcularPrecioTotal(){
+    function calcularPrecioTotal(ids, idNoModificado){
+        // Resolve problem with the autoincrement of suma.
         useMemo(() => {
             GetBurgers().then(burga => {
                 for(let i = 0; i < pedido.length ; i++){
-                    if(pedido[i].id == burga.id || pedido[i].idM == burga.id){
-                        sumaTotal = sumaTotal + burga[i].precio;
-                        setSumaTotal(sumaTotal);
+                    console.log(estadoPedido[i]);   
+                    console.log(ids);
+                    // The problem is that burga.id is undefined.
+                    console.log(burga.id);
+                    if(estadoPedido[i].id == burga.id){
+                        suma = suma + burga[ids].precio;
+                        console.log(suma+" primera");
+                    }else if (estadoPedido[i].id == burga.id){
+                        suma = suma + burga[idNoModificado-1].precio;
+                        console.log(suma+" segunda");
                     }
+                    setSumaTotal(suma);
                 }
             })
-        }, []);
+        }, [pedido]);
         return(
             <>
             <label>Total : 💰 {sumaTotal}</label>
@@ -121,7 +133,7 @@ export function FormAgendar() {
                 </table>
             </div>
             <div>
-                {calcularPrecioTotal()}
+                {calcularPrecioTotal(ids, idNoModificado)}
             </div>
             <button>Enviar a cola</button>
         </form>
