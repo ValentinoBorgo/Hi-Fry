@@ -41,7 +41,7 @@ export function FormAgendar() {
 
     const ids = useSelector(state => state.burgers.ids);
 
-    const idNoModificado = useSelector(state => state.burgers.idNoModificado);
+    const contModificaciones = useSelector(state => state.burgers.contModificaciones);
 
     const [estadoPedido, setEstadoPedido] = useState(pedido)
     
@@ -60,27 +60,26 @@ export function FormAgendar() {
         e.preventDefault();
         for(let i = 0; i < pedido.length; i++){
             const actualizacion = [...estadoPedido];
+            // It remains to solve the problem that if I have 2 repeated hamburgers 
+            // and I want to delete one, both are deleted and not one.
             let actualizarPedido = actualizacion.filter(p => p.id != id || p.idM != idM);
+            console.log(actualizarPedido);
             setEstadoPedido(actualizarPedido);
         }
         dispatch(agendarPedido([...estadoPedido]))
     }
 
-    function calcularPrecioTotal(ids, idNoModificado){
-        // Resolve problem with the autoincrement of suma.
+    function calcularPrecioTotal(){
         useMemo(() => {
             GetBurgers().then(burga => {
-                for(let i = 0; i < pedido.length ; i++){
-                    console.log(estadoPedido[i]);   
-                    console.log(ids);
-                    // The problem is that burga.id is undefined.
-                    console.log(burga.id);
-                    if(estadoPedido[i].id == burga.id){
-                        suma = suma + burga[ids].precio;
-                        console.log(suma+" primera");
-                    }else if (estadoPedido[i].id == burga.id){
-                        suma = suma + burga[idNoModificado-1].precio;
-                        console.log(suma+" segunda");
+                for(let i = 0; i < estadoPedido.length ; i++){
+
+                    if(estadoPedido[i].hasOwnProperty('id')){
+                        suma = suma + burga[estadoPedido[i].id-1].precio;
+                    }
+
+                    if (estadoPedido[i].hasOwnProperty('idM')){
+                        suma = suma + burga[estadoPedido[i].idM-1].precio;
                     }
                     setSumaTotal(suma);
                 }
@@ -133,7 +132,7 @@ export function FormAgendar() {
                 </table>
             </div>
             <div>
-                {calcularPrecioTotal(ids, idNoModificado)}
+                {calcularPrecioTotal()}
             </div>
             <button>Enviar a cola</button>
         </form>
