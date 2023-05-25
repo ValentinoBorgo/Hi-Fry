@@ -4,6 +4,7 @@ const initialState = {
     allBurgers: [],
     burgaM: [],
     modificaciones: [],
+    Comandas: [],
     pedidos: '',
     modificarAbierto: false,
     modalAgregar: false,
@@ -11,7 +12,6 @@ const initialState = {
     ids: '',
     idNoModificado: '',
     contModificaciones: -1,
-    Comandas: []
 }
 
 export const rootReducer = createSlice({

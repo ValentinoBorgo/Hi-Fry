@@ -99,19 +99,21 @@ export function ModificarHamburguesa() {
         <form onSubmit={handleSubmit}>
             <button onClick={cancel}>X</button>
             <div className="divs">
-                <label>Carnes</label>
+                <label>extra Carne</label>
                 <button className="btns" onClick={(e) => handleSumCarnes(e)}>+</button>
                 <input required type="number" onChange={(e) =>handleChange(e)} name="carnes" value={datos.carnesM}></input>
                 <button className="btns" onClick={(e) => handleRestCarnes(e)}>-</button>
             </div>
+            <br />
             <div className="divs">
-                <label>Chedar</label>
+                <label>extra Chedar</label>
                 <button className="btns" onClick={(e) => handleSumChedar(e)}>+</button>
                 <input  required type="number" value={datos.chedarM} name="chedar" onChange={(e) =>handleChange(e)}></input>
                 <button className="btns" onClick={(e) => handleRestChedar(e)}>-</button>
             </div>
+            <br />
             <div className="divs">
-                <label>Ingredientes</label>
+                <label>Comentarios</label>
                 <textarea required cols="30" rows="10" placeholder="Indique sus ingredientes" name="ingredientes" onChange={(e) =>handleText(e)}></textarea>
             </div>
             <input type="submit" value="Aceptar"/>

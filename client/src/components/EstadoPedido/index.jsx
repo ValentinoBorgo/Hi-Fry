@@ -1,4 +1,4 @@
-import { modalAgendar, agendarPedido } from "../../redux/reducer/reducer";
+import { modalAgendar, agendarPedido, agregarComanda, contarModificaciones } from "../../redux/reducer/reducer";
 import { useDispatch, useSelector } from "react-redux";
 import './formAgendar.css'
 import { useMemo, useState } from "react";
@@ -42,9 +42,19 @@ export function FormAgendar() {
 
     const [estadoPedido, setEstadoPedido] = useState(pedido)
 
+    
+    const [dat, setDat] = useState({
+        nombre : '',
+        selección : '',
+        total : '',
+        comandas : []
+    });
+    
     let suma = 0;
-
     const [sumaTotal, setSumaTotal] = useState(suma);
+    let  name = dat.nombre;
+    const [selección, setSeleccion] = useState(dat.selección);
+    const [comanda, setComanda] = useState(dat.comandas);
 
     const cancel = (e) => {
         e.preventDefault();
@@ -65,6 +75,7 @@ export function FormAgendar() {
         dispatch(agendarPedido([...estadoPedido]))
     }
 
+    //This function changue the var suma to 0 when the table is empty.
     const handleTable = (e) => {
         e.preventDefault();
         let tabla = document.getElementById('tabla');
@@ -72,6 +83,38 @@ export function FormAgendar() {
             suma = 0;
         }
         setSumaTotal(suma);
+    }
+
+    //Handle event of the input for the name.
+    const handleName = (e) =>{
+        e.preventDefault();
+        dat.nombre = e.target.value;
+    }
+
+
+    //Return the value of the select with the option selected.
+    const handleSelect = (e) =>{
+        e.preventDefault();
+        setSeleccion(e.target.value);
+        dat.selección = e.target.value;
+    }
+    
+
+    //Sends the form convert into state to managment in the app.
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        dat.total = sumaTotal;
+        dispatch(agendarPedido([...estadoPedido]));
+        setComanda(dat.comandas =  estadoPedido);
+        setDat({
+            nombre : name,
+            selección : selección,
+            total : sumaTotal,
+            comandas : comanda
+        });
+        dispatch(agregarComanda(dat));
+        dispatch(modalAgendar(!modalAgendar));
+        dispatch(agendarPedido([]))
     }
 
     //Function that resolve the sum of the list of pedidos.
@@ -100,19 +143,19 @@ export function FormAgendar() {
     }
 
     return (
-        <form action="" className="Agendar">
+        <form action="" className="Agendar" onSubmit={handleSubmit}>
             <button onClick={e => cancel(e)}>X</button>
             <div>
                 <label>Nombre / Apellido : </label>
-                <input type="text" required/>
+                <input type="text" required onChange={(e) =>handleName(e)}/>
             </div>
             <div>
                 <label>Retiro / Consumir en local : </label>
-                <select required>
-                    <option value="">Opciones</option>
-                    <option value="">Retiro por local</option>
-                    <option value="">Delivery</option>
-                    <option value="">Comer en el local</option>
+                <select name="opciones" required onChange={(e) =>handleSelect(e)}>
+                    <option>Opciones</option>
+                    <option value="Retiro Local">Retiro por local</option>
+                    <option value="Delivery">Delivery</option>
+                    <option value="FastFood">Comer en el local</option>
                 </select>
             </div>
             <div>
@@ -126,7 +169,7 @@ export function FormAgendar() {
                             <th>Comentarios</th>
                             <th>Eliminar</th>
                         </tr>
-                    </thead>
+                    </thead>    
                     {
                         estadoPedido?.map(p => (
                             <tbody key={p.llave}>
@@ -145,7 +188,7 @@ export function FormAgendar() {
             <div>
                 {calcularPrecioTotal()}
             </div>
-            <button>Enviar a cola</button>
+            <button type="submit">Enviar a cola</button>
         </form>
     )
 }
