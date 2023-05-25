@@ -2,7 +2,8 @@ import { modalAgendar, agendarPedido } from "../../redux/reducer/reducer";
 import { useDispatch, useSelector } from "react-redux";
 import './formAgendar.css'
 import { useMemo, useState } from "react";
-import { GetBurgers } from "../../redux/actions";
+import { GetBurgers } from "../../redux/actions"
+import { v4 as uuidv4 } from 'uuid';
 
 export function EstadoPedido() {
 
@@ -39,32 +40,39 @@ export function FormAgendar() {
 
     const pedido = useSelector(state => state.burgers.pedidos)
 
-    const ids = useSelector(state => state.burgers.ids);
-
-    const contModificaciones = useSelector(state => state.burgers.contModificaciones);
-
     const [estadoPedido, setEstadoPedido] = useState(pedido)
     
     let suma = 0;
 
     const [sumaTotal, setSumaTotal] = useState(suma);
 
+    const [idSumado, setIdSumado] = useState([]);
 
     const cancel = (e) => {
+        console.log(Object.isExtensible(pedido));
         e.preventDefault();
         dispatch(modalAgendar(!modalAgendar))
         dispatch(agendarPedido([...estadoPedido]))
+        for(let i = 0; i < estadoPedido.length; i++){
+            console.log(estadoPedido[i].llave);
+        }
     }
 
     const handleDelete = (e, idM, id) =>{
         e.preventDefault();
-        for(let i = 0; i < pedido.length; i++){
-            const actualizacion = [...estadoPedido];
-            // It remains to solve the problem that if I have 2 repeated hamburgers 
-            // and I want to delete one, both are deleted and not one.
-            let actualizarPedido = actualizacion.filter(p => p.id != id || p.idM != idM);
-            console.log(actualizarPedido);
-            setEstadoPedido(actualizarPedido);
+        // for(let i = 0; i < pedido.length; i++){
+        //     const actualizacion = [...estadoPedido];
+        //     // It remains to solve the problem that if I have 2 repeated hamburgers 
+        //     // and I want to delete one, both are deleted and not one.
+        //     let actualizarPedido = actualizacion.filter(p => p.id != id || p.idM != idM);
+        //     setEstadoPedido(actualizarPedido);
+        // }
+        for (let i = 0; i < pedido.length; i++) {
+            if ( pedido[i].id == id || pedido[i].idM == idM) {
+                const actualizacion = [...estadoPedido];
+              actualizacion.splice(i, 1); // Eliminar el elemento en la posición i
+              setEstadoPedido(actualizacion);
+            }
         }
         dispatch(agendarPedido([...estadoPedido]))
     }
@@ -120,7 +128,8 @@ export function FormAgendar() {
                     </tr>
                 {
                     estadoPedido?.map(p =>(
-                        <tr key={p.idM || p.id} className="listaPedi">
+                        <tr className="listaPedi" key={uuidv4()}>
+                            <th hidden id={p.idM || p.id}></th>
                             <th>{p.burgerM || p.burger} </th>
                             <th>{p.carnesM || "D "+p.carnes} </th>
                             <th>{p.chedarM || "D "+p.chedar} </th>

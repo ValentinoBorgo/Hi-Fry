@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { modalModificar, realizarModificaciones, contarModificaciones } from "../../redux/reducer/reducer";
 import './formModificar.css'
 import { GetBurgersM } from "../../redux/actions";
+import { v4 as uuidv4 } from 'uuid';
 
 export function ModificarHamburguesa() {
     
@@ -21,7 +22,8 @@ export function ModificarHamburguesa() {
         burgerM : '',
         carnesM : '',
         chedarM : '',
-        ingredientesM : ''
+        ingredientesM : '',
+        llave : ''
     });
     
     let ids = useSelector(state => state.burgers.ids);
@@ -31,6 +33,12 @@ export function ModificarHamburguesa() {
     const ingredientes= datos.ingredientesM;
     const [ides, setIds] = useState(datos.idM);
     const datBurger = datos.burgerM;
+    const [key, setKey] = useState(datos.llave);
+
+    const generadorLlave = () =>{
+        const llave = uuidv4();
+        setKey(datos.llave = llave);
+    }
 
     useMemo(() =>{
         GetBurgersM(ids).then((value) =>{
@@ -71,14 +79,17 @@ export function ModificarHamburguesa() {
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        dispatch(contarModificaciones(+ 1))
-        setIds(datos.idM = ids)
+        dispatch(contarModificaciones(+ 1));
+        setIds(datos.idM = ids);
+        generadorLlave();
         setDatos({
             idM : ides,
             burgerM : datBurger,
             carnesM : contCarnes,
             chedarM : contChedar,
-            ingredientesM: ingredientes})
+            ingredientesM: ingredientes,
+            llave : key
+        })
         dispatch(realizarModificaciones(datos))
         dispatch(modalModificar(!stateModal));
     }

@@ -3,6 +3,7 @@ import './formAgregar.css'
 import { useDispatch, useSelector } from "react-redux";
 import { getBurgaM, modalAgregar, modalAgendar, agendarPedido } from "../../redux/reducer/reducer";
 import { GetBurgersM } from "../../redux/actions";
+import { v4 as uuidv4 } from 'uuid';
 
 export function AgregarHamburguesa({ burgersM }) {
 
@@ -19,7 +20,6 @@ export function AgregarHamburguesa({ burgersM }) {
     const contModificaciones = useSelector(state => state.burgers.contModificaciones);
 
     const pedidos = useSelector(state => state.burgers.pedidos)
-
 
     const [ListaPedido, setListaPedido] = useState(pedidos);
 
@@ -55,6 +55,8 @@ export function AgregarHamburguesa({ burgersM }) {
             GetBurgersM(idM).then((value) => {
                 const { id, burger, chedar, carnes, ingredientes } = value[0];
                 const nuevo = { id, burger, carnes, chedar, ingredientes };
+                const randomKey = uuidv4();
+                nuevo.llave = randomKey;
                 const estado = [...ListaPedido];
                 estado.push(nuevo)
                 setListaPedido(estado)
