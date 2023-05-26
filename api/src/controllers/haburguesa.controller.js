@@ -28,7 +28,7 @@ const obtenerUnaHamburguesa = async (req, res) => {
         if (result == '') {
             res.status(500).json("This burger doesnt exists");
         }
-        
+
         console.log(result);
         res.status(200).json(result).end();
     } catch (error) {
@@ -55,7 +55,7 @@ const agregarHamburguesas = async (req, res) => {
         console.log(agregado);
         console.log('-----------------------------');
         console.log(agregado.content);
-        res.status(201).json("Agregaste pa").end();
+        res.status(201).json("Hamburguesa agregada efectivamente").end();
     } catch (error) {
         // This status means internal server error
         res.status(500);
@@ -63,40 +63,76 @@ const agregarHamburguesas = async (req, res) => {
     }
 }
 
-const eliminarHamburguesa = async (req, res) =>{
-    try{
-        const {id} = req.params;
+const eliminarHamburguesa = async (req, res) => {
+    try {
+        const { id } = req.params;
 
         const connection = await getConnection();
         const result = await connection.query('DELETE FROM hamburguesa WHERE id = ?', id);
 
         console.log(result);
-        response.status(204).end();        
-    }catch(error){
+        response.status(204).end();
+    } catch (error) {
         res.status(500).json(error);
     }
 }
 
-const modificarHamburguesa = async (req, res) =>{
-    try{
-        const {id} = req.params;
-        const {burger, img, precio, carnes, chedar, pan, ingredientes } = req.body;
+const modificarHamburguesa = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { burger, img, precio, carnes, chedar, pan, ingredientes } = req.body;
 
         if (id == undefined || burger == undefined || img == undefined || precio == undefined || carnes == undefined || chedar == undefined || pan == undefined || ingredientes == undefined) {
             return res.status(400).json({ error: 'Bad request, Please fill all fields' });
         }
 
-        const parameter = {burger, img, precio, carnes, chedar, pan, ingredientes };
+        const parameter = { burger, img, precio, carnes, chedar, pan, ingredientes };
 
         const connection = await getConnection();
-        const result = await connection.query('UPDATE hamburguesa SET  ? WHERE id = ?',[parameter, id]);
+        const result = await connection.query('UPDATE hamburguesa SET  ? WHERE id = ?', [parameter, id]);
 
         console.log(result);
-        response.status(204).end();        
-    }catch(error){
+        response.status(204).end();
+    } catch (error) {
         res.status(500).json(error);
     }
 }
+
+const guardarHamburguesaM = async (req, res) => {
+    try {
+
+        const { idM, burgerM, precioM, carnesM, chedarM, ingredientesM, llave } = req.body;
+
+        if (idM == undefined ||  burgerM == undefined || precioM == undefined || carnesM == undefined || chedarM == undefined ||  ingredientesM == undefined || llave == undefined) {
+            return res.status(400).json({ error: 'Bad request, Please fill all fields' });
+        }
+
+        const hamburguesaM = {idM, burgerM, precioM, carnesM, chedarM, ingredientesM, llave};
+
+        const connection = await getConnection();
+        const result = await connection.query('INSERT INTO hamburguesam SET ?', hamburguesaM);
+        res.status(201).json("HamburguesaM agregada efectivamente").end();
+    }catch(error){
+        res.status(500);
+        console.log(error);
+    }
+}
+
+// const guardarEnLista = async (req,res) =>{
+//     try{
+//         const { burger, img, precio, carnes, chedar, pan, ingredientes } = req.body;
+//         const { burgerM, imgM, precioM, carnesM, chedarM, panM, ingredientesM } = req.body;
+
+//         if ( burger == undefined || img == undefined || precio == undefined || carnes == undefined || chedar == undefined || pan == undefined || ingredientes == undefined) {
+//             return res.status(400).json({ error: 'Bad request, Please fill all fields' });
+//         }else if (burgerM == undefined || imgM == undefined || precioM == undefined || carnesM == undefined || chedarM == undefined || panM == undefined || ingredientesM == undefined){
+//             return res.status(400).json({ error: 'Bad request, Please fill all fields' });
+//         }
+
+//         const connection = await getConnection();
+//         const result = await connection.query('');
+//     }
+// }
 
 
 
@@ -105,5 +141,6 @@ module.exports = {
     agregarHamburguesas,
     obtenerUnaHamburguesa,
     eliminarHamburguesa,
-    modificarHamburguesa
+    modificarHamburguesa,
+    guardarHamburguesaM
 };

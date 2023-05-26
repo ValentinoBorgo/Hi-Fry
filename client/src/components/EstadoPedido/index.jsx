@@ -129,6 +129,8 @@ export function FormAgendar() {
 
                     if (estadoPedido[i].hasOwnProperty('idM')) {
                         suma = suma + burga[estadoPedido[i].idM - 1].precio;
+                        suma = suma + (estadoPedido[i].carnesM * 500);
+                        suma = suma + (estadoPedido[i].chedarM * 250);
                     }
 
                     setSumaTotal(suma);

@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { modalModificar, realizarModificaciones, contarModificaciones } from "../../redux/reducer/reducer";
 import './formModificar.css'
-import { GetBurgersM } from "../../redux/actions";
+import { GetBurgersM, agregarHM } from "../../redux/actions";
 import { v4 as uuidv4 } from 'uuid';
 
 export function ModificarHamburguesa() {
@@ -23,6 +23,7 @@ export function ModificarHamburguesa() {
         carnesM : '',
         chedarM : '',
         ingredientesM : '',
+        precioM : '',
         llave : ''
     });
     
@@ -33,6 +34,7 @@ export function ModificarHamburguesa() {
     const ingredientes= datos.ingredientesM;
     const [ides, setIds] = useState(datos.idM);
     const datBurger = datos.burgerM;
+    const [datPrecioM, setPrecioM] = useState(datos.precioM);
     const [key, setKey] = useState(datos.llave);
 
     const generadorLlave = () =>{
@@ -42,8 +44,9 @@ export function ModificarHamburguesa() {
 
     useMemo(() =>{
         GetBurgersM(ids).then((value) =>{
-            let {burger} = value[0];
+            let {burger, precio} = value[0];
             datos.burgerM = burger
+            datos.precioM = precio;
         })
     },[ids])
     
@@ -79,6 +82,7 @@ export function ModificarHamburguesa() {
 
     const handleSubmit = (e) =>{
         e.preventDefault();
+        setPrecioM(datos.precioM = datos.precioM + (contCarnes+1) * 500 + (contChedar+1) * 250);
         dispatch(contarModificaciones(+ 1));
         setIds(datos.idM = ids);
         generadorLlave();
@@ -88,10 +92,13 @@ export function ModificarHamburguesa() {
             carnesM : contCarnes,
             chedarM : contChedar,
             ingredientesM: ingredientes,
+            precioM : datPrecioM,
             llave : key
         })
         dispatch(realizarModificaciones(datos))
         dispatch(modalModificar(!stateModal));
+        agregarHM(datos);
+        console.log(datos);
     }
 
     
@@ -99,14 +106,14 @@ export function ModificarHamburguesa() {
         <form onSubmit={handleSubmit}>
             <button onClick={cancel}>X</button>
             <div className="divs">
-                <label>extra Carne</label>
+                <label>extra Carne ++ $500</label>
                 <button className="btns" onClick={(e) => handleSumCarnes(e)}>+</button>
                 <input required type="number" onChange={(e) =>handleChange(e)} name="carnes" value={datos.carnesM}></input>
                 <button className="btns" onClick={(e) => handleRestCarnes(e)}>-</button>
             </div>
             <br />
             <div className="divs">
-                <label>extra Chedar</label>
+                <label>extra Chedar ++ $250</label>
                 <button className="btns" onClick={(e) => handleSumChedar(e)}>+</button>
                 <input  required type="number" value={datos.chedarM} name="chedar" onChange={(e) =>handleChange(e)}></input>
                 <button className="btns" onClick={(e) => handleRestChedar(e)}>-</button>

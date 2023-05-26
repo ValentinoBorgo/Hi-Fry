@@ -20,4 +20,13 @@ export const GetBurgersM = async (idM) =>{
   }catch(error){
     console.log(error)
   }
-}  
+}
+
+export const agregarHM = async (data) =>{
+  try{
+    const hm = await axios.post(`http://localhost:4000/api/hamburguesas/agregadoM`, data);
+    console.log(hm.data);
+  }catch(error){
+    console.log(error);
+  }
+}
