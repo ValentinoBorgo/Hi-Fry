@@ -98,7 +98,6 @@ export function ModificarHamburguesa() {
         dispatch(realizarModificaciones(datos))
         dispatch(modalModificar(!stateModal));
         agregarHM(datos);
-        console.log(datos);
     }
 
     
