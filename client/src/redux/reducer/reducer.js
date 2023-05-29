@@ -60,6 +60,10 @@ export const rootReducer = createSlice({
 
         agregarComanda: (state, action) => {
             state.Comandas.push(action.payload);
+        },
+
+        designarComanda: (state, action) => {
+            state.Comandas.splice(state,1);
         }
     }
 })
@@ -77,6 +81,7 @@ export const {
     agendarPedido,
     contarModificaciones,
     modalAgendar,
-    agregarComanda } = rootReducer.actions
+    agregarComanda,
+    designarComanda } = rootReducer.actions
 
 export default rootReducer.reducer
