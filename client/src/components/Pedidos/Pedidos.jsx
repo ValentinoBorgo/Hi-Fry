@@ -13,7 +13,7 @@ export default function Pedidos() {
     
     const [estadoComandas, setEstadoComandas] = useState(comandas);
 
-    const handleCancel = (e, index) =>{
+    const handleDelete = (e, index) =>{
         e.preventDefault();
         const actualizacion = [...estadoComandas];
         for(let i = 0; i < actualizacion.length; i++){
@@ -46,7 +46,7 @@ export default function Pedidos() {
                         </div>
                         <strong>Precio Total : $💰 {c.total}</strong>
                         <br />
-                        <button style={{color : 'red'}} onClick={(e) => handleCancel(e, c)}>X</button>
+                        <button style={{color : 'red'}} onClick={(e) => handleDelete(e, c)}>X</button>
                     </div>
                 ))) : (<p>Error</p>)
             }
