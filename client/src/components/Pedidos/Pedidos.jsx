@@ -8,9 +8,9 @@ export default function Pedidos() {
 
 
     const comandas = useSelector(state => state.burgers.Comandas);
-
+    
     const dispatch = useDispatch();
-
+    
     const [estadoComandas, setEstadoComandas] = useState(comandas);
 
     const handleCancel = (e, index) =>{
@@ -19,16 +19,11 @@ export default function Pedidos() {
         for(let i = 0; i < actualizacion.length; i++){
             if(estadoComandas[i].nombre == index.nombre && estadoComandas[i].selección == index.selección && estadoComandas[i].total == index.total && estadoComandas[i].comandas == index.comandas){
                 actualizacion.splice(i,1);
+                dispatch(designarComanda(actualizacion));
                 setEstadoComandas(actualizacion);
             }
         }
-        dispatch(designarComanda(estadoComandas));
-        console.log(actualizacion);
     }
-
-    console.log(comandas);
-    console.log(estadoComandas);
-    console.log(estadoComandas.length);
 
     return (
         <>

@@ -63,7 +63,7 @@ export const rootReducer = createSlice({
         },
 
         designarComanda: (state, action) => {
-            state.Comandas.splice(state,1);
+            state.Comandas = action.payload;
         }
     }
 })
