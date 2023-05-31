@@ -2,7 +2,7 @@ import { modalAgendar, agendarPedido, agregarComanda, contarModificaciones } fro
 import { useDispatch, useSelector } from "react-redux";
 import './formAgendar.css'
 import { useMemo, useState } from "react";
-import { GetBurgers } from "../../redux/actions"
+import { GetBurgers, agregarAListado } from "../../redux/actions"
 import { v4 as uuidv4 } from 'uuid';
 
 export function EstadoPedido() {
@@ -113,6 +113,8 @@ export function FormAgendar() {
             comandas : comanda
         });
         dispatch(agregarComanda(dat));
+        console.log(dat.comandas);
+        // agregarAListado(dat);
         dispatch(modalAgendar(!modalAgendar));
         dispatch(agendarPedido([]))
     }

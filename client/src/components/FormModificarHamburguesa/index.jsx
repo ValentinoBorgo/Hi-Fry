@@ -93,7 +93,7 @@ export function ModificarHamburguesa() {
             chedarM : contChedar,
             ingredientesM: ingredientes,
             precioM : datPrecioM,
-            llave : key
+            llaveidM : key
         })
         dispatch(realizarModificaciones(datos))
         dispatch(modalModificar(!stateModal));

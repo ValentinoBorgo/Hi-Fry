@@ -57,7 +57,6 @@ const agregarHamburguesas = async (req, res) => {
         console.log(agregado.content);
         res.status(201).json("Hamburguesa agregada efectivamente").end();
     } catch (error) {
-        // This status means internal server error
         res.status(500);
         console.log(error);
     }
@@ -101,13 +100,13 @@ const modificarHamburguesa = async (req, res) => {
 const guardarHamburguesaM = async (req, res) => {
     try {
 
-        const { idM, burgerM, precioM, carnesM, chedarM, ingredientesM, llave } = req.body;
+        const { idM, burgerM, precioM, carnesM, chedarM, ingredientesM, llaveidM } = req.body;
 
-        if (idM == undefined ||  burgerM == undefined || precioM == undefined || carnesM == undefined || chedarM == undefined ||  ingredientesM == undefined || llave == undefined) {
+        if (idM == undefined ||  burgerM == undefined || precioM == undefined || carnesM == undefined || chedarM == undefined ||  ingredientesM == undefined || llaveidM == undefined) {
             return res.status(400).json({ error: 'Bad request, Please fill all fields' });
         }
 
-        const hamburguesaM = {idM, burgerM, precioM, carnesM, chedarM, ingredientesM, llave};
+        const hamburguesaM = {idM, burgerM, precioM, carnesM, chedarM, ingredientesM, llaveidM};
 
         const connection = await getConnection();
         const result = await connection.query('INSERT INTO hamburguesam SET ?', hamburguesaM);
@@ -118,21 +117,40 @@ const guardarHamburguesaM = async (req, res) => {
     }
 }
 
-// const guardarEnLista = async (req,res) =>{
-//     try{
-//         const { burger, img, precio, carnes, chedar, pan, ingredientes } = req.body;
-//         const { burgerM, imgM, precioM, carnesM, chedarM, panM, ingredientesM } = req.body;
+const guardarEnLista = async (req,res) =>{
+    const connection = await getConnection();
+    try{
+        const result = [];
+        const key = [];
 
-//         if ( burger == undefined || img == undefined || precio == undefined || carnes == undefined || chedar == undefined || pan == undefined || ingredientes == undefined) {
-//             return res.status(400).json({ error: 'Bad request, Please fill all fields' });
-//         }else if (burgerM == undefined || imgM == undefined || precioM == undefined || carnesM == undefined || chedarM == undefined || panM == undefined || ingredientesM == undefined){
-//             return res.status(400).json({ error: 'Bad request, Please fill all fields' });
-//         }
+        for(let i = 0; i < req.body.length; i++){
+            result.push(req.body[i].id || req.body[i].idM);
+            key.push(req.body[i].llave || req.body[i].llaveidM);
+        }
 
-//         const connection = await getConnection();
-//         const result = await connection.query('');
-//     }
-// }
+        res.json(result.concat(key));
+        
+        // const { id, burger, precio, carnes, chedar, ingredientes, llave } = req.body;
+        // const { idM, burgerM, precioM, carnesM, chedarM, ingredientesM, llaveidM } = req.body;
+
+        // if ((burger == undefined || id == undefined || precio == undefined || carnes == undefined || chedar == undefined || llave == undefined || ingredientes == undefined) && (burgerM == undefined || idM == undefined || precioM == undefined || carnesM == undefined || chedarM == undefined || llaveidM == undefined || ingredientesM == undefined)) {
+        //     return res.status(400).json({ error: 'Bad request, Please fill all fields' });
+        // }
+
+        // const hamburguesa = {id, llave};
+        // const hamburguesaM = {idM, llaveidM};
+
+        // const result = await connection.query('INSERT INTO listahamburguesa SET ?', [hamburguesa, hamburguesaM], (error, results) =>{
+        //     if (error) throw error;
+        //     res.status(201).json("Lista ✔️ "+ results).end();
+        // });
+
+    }catch(error){
+        await connection.query('ROLLBACK');
+        res.status(500);
+        console.log(error);
+    }
+}
 
 
 
@@ -142,5 +160,6 @@ module.exports = {
     obtenerUnaHamburguesa,
     eliminarHamburguesa,
     modificarHamburguesa,
-    guardarHamburguesaM
+    guardarHamburguesaM,
+    guardarEnLista
 };
