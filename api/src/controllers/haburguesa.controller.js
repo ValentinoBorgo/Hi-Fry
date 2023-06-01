@@ -124,11 +124,33 @@ const guardarEnLista = async (req,res) =>{
         const key = [];
 
         for(let i = 0; i < req.body.length; i++){
+            // if(req.body[i].id != '' && req.body[i].llave != ''){
+            //     const {id} = req.body[i].id;
+            //     const {llave} = req.body[i].llave;
+            //     const datosId = {id, llave};
+            //     const result = await connection.query('INSERT INTO listahamburguesa SET ?', datosId);
+            // }else if (req.body[i].idM != '' && req.body[i].llaveidM != ''){
+            //     const {idMM} = req.body[i].idM;
+            //     const {llaveM} = req.body[i].llaveidM;
+            //     const datosIdM = {idMM, llaveM};
+            //     const result = await connection.query('INSERT INTO listahamburguesa SET ?', datosIdM);
+            // }else{
+            //     res.json("Error");
+            // }
             result.push(req.body[i].id || req.body[i].idM);
             key.push(req.body[i].llave || req.body[i].llaveidM);
         }
 
-        res.json(result.concat(key));
+            const dat = [];
+
+            for(let i = 0; i < result.length; i++){
+                let datos = result[i] +" - "+ key[i];
+                dat.push(datos);
+            }
+            res.json(dat);
+
+        // res.json(result.concat(key));
+        // res.status(201).json("Hamburguesa agregada a la lista").end();
         
         // const { id, burger, precio, carnes, chedar, ingredientes, llave } = req.body;
         // const { idM, burgerM, precioM, carnesM, chedarM, ingredientesM, llaveidM } = req.body;
