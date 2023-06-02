@@ -121,51 +121,47 @@ const guardarEnLista = async (req,res) =>{
     const connection = await getConnection();
     try{
         const result = [];
-        const key = [];
+        const llave = [];
+        const querys = [];
 
         for(let i = 0; i < req.body.length; i++){
-            // if(req.body[i].id != '' && req.body[i].llave != ''){
-            //     const {id} = req.body[i].id;
-            //     const {llave} = req.body[i].llave;
-            //     const datosId = {id, llave};
-            //     const result = await connection.query('INSERT INTO listahamburguesa SET ?', datosId);
-            // }else if (req.body[i].idM != '' && req.body[i].llaveidM != ''){
-            //     const {idMM} = req.body[i].idM;
-            //     const {llaveM} = req.body[i].llaveidM;
-            //     const datosIdM = {idMM, llaveM};
-            //     const result = await connection.query('INSERT INTO listahamburguesa SET ?', datosIdM);
-            // }else{
-            //     res.json("Error");
-            // }
-            result.push(req.body[i].id || req.body[i].idM);
-            key.push(req.body[i].llave || req.body[i].llaveidM);
+            if(req.body[i].hasOwnProperty('id')){
+                result.push(req.body[i].id);
+                llave.push(req.body[i].llave);
+                let dat = {
+                    hamburguesa_id : result[i],
+                    llave : llave[i]
+                }
+                querys.push(dat);
+            }else if(req.body[i].hasOwnProperty('idM')){
+                result.push(req.body[i].idM);
+                llave.push(req.body[i].llaveidM);
+                let datM = {
+                    hamburgesaM_idM : result[i],
+                    llave : llave[i]
+                }
+                querys.push(datM);
+            }
         }
 
-            const dat = [];
-
-            for(let i = 0; i < result.length; i++){
-                let datos = result[i] +" - "+ key[i];
-                dat.push(datos);
+        for(let i = 0; i < querys.length; i++){
+            try{
+                if(querys[i].hasOwnProperty('hamburguesa_id')){
+                    const {hamburguesa_id, llave} = querys[i];
+                    const lista = {hamburguesa_id, llave}
+                    const result = await connection.query('INSERT INTO listahamburguesa SET ?', lista);
+                }else if(querys[i].hasOwnProperty('hamburgesaM_idM')){
+                    const {hamburgesaM_idM, llave} = querys[i];
+                    const lista = {hamburgesaM_idM ,llave}
+                    const result = await connection.query('INSERT INTO listahamburguesa SET ?', lista);
+                }
+            }catch(error){
+                res.status(500);
+                res.json(error);
             }
-            res.json(dat);
-
-        // res.json(result.concat(key));
-        // res.status(201).json("Hamburguesa agregada a la lista").end();
+        }
         
-        // const { id, burger, precio, carnes, chedar, ingredientes, llave } = req.body;
-        // const { idM, burgerM, precioM, carnesM, chedarM, ingredientesM, llaveidM } = req.body;
-
-        // if ((burger == undefined || id == undefined || precio == undefined || carnes == undefined || chedar == undefined || llave == undefined || ingredientes == undefined) && (burgerM == undefined || idM == undefined || precioM == undefined || carnesM == undefined || chedarM == undefined || llaveidM == undefined || ingredientesM == undefined)) {
-        //     return res.status(400).json({ error: 'Bad request, Please fill all fields' });
-        // }
-
-        // const hamburguesa = {id, llave};
-        // const hamburguesaM = {idM, llaveidM};
-
-        // const result = await connection.query('INSERT INTO listahamburguesa SET ?', [hamburguesa, hamburguesaM], (error, results) =>{
-        //     if (error) throw error;
-        //     res.status(201).json("Lista ✔️ "+ results).end();
-        // });
+        res.status(201).json(querys).end();
 
     }catch(error){
         await connection.query('ROLLBACK');
