@@ -48,7 +48,7 @@ export default function Pedidos() {
                         <br />
                         <button style={{color : 'red'}} onClick={(e) => handleDelete(e, c)}>X</button>
                     </div>
-                ))) : (<p>Error</p>)
+                ))) : (<p>No hay Pedidos pendientes !</p>)
             }
         </article>
         <br />

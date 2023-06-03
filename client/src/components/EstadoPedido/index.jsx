@@ -113,8 +113,7 @@ export function FormAgendar() {
             comandas : comanda
         });
         dispatch(agregarComanda(dat));
-        console.log(dat.comandas);
-        // agregarAListado(dat);
+        agregarAListado(dat.comandas);
         dispatch(modalAgendar(!modalAgendar));
         dispatch(agendarPedido([]))
     }

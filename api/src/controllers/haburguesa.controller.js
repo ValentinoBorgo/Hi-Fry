@@ -99,14 +99,14 @@ const modificarHamburguesa = async (req, res) => {
 
 const guardarHamburguesaM = async (req, res) => {
     try {
-
-        const { idM, burgerM, precioM, carnesM, chedarM, ingredientesM, llaveidM } = req.body;
+        
+        const { burgerM, carnesM, chedarM, idM, ingredientesM, llaveidM, precioM } = req.body;
 
         if (idM == undefined ||  burgerM == undefined || precioM == undefined || carnesM == undefined || chedarM == undefined ||  ingredientesM == undefined || llaveidM == undefined) {
             return res.status(400).json({ error: 'Bad request, Please fill all fields' });
         }
 
-        const hamburguesaM = {idM, burgerM, precioM, carnesM, chedarM, ingredientesM, llaveidM};
+        const hamburguesaM = {burgerM, carnesM, chedarM, idM, ingredientesM, llaveidM, precioM};
 
         const connection = await getConnection();
         const result = await connection.query('INSERT INTO hamburguesam SET ?', hamburguesaM);

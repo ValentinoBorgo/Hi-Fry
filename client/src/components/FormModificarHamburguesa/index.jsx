@@ -24,7 +24,7 @@ export function ModificarHamburguesa() {
         chedarM : '',
         ingredientesM : '',
         precioM : '',
-        llave : ''
+        llaveidM : ''
     });
     
     let ids = useSelector(state => state.burgers.ids);
@@ -35,11 +35,11 @@ export function ModificarHamburguesa() {
     const [ides, setIds] = useState(datos.idM);
     const datBurger = datos.burgerM;
     const [datPrecioM, setPrecioM] = useState(datos.precioM);
-    const [key, setKey] = useState(datos.llave);
+    const [key, setKey] = useState(datos.llaveidM);
 
     const generadorLlave = () =>{
         const llave = uuidv4();
-        setKey(datos.llave = llave);
+        setKey(datos.llaveidM = llave);
     }
 
     useMemo(() =>{
@@ -95,6 +95,7 @@ export function ModificarHamburguesa() {
             precioM : datPrecioM,
             llaveidM : key
         })
+        console.log(datos);
         dispatch(realizarModificaciones(datos))
         dispatch(modalModificar(!stateModal));
         agregarHM(datos);
