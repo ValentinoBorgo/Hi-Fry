@@ -21,9 +21,11 @@ export function NavBar(){
                         Hamburguesas
                     </NavLink>
                     </li>
-                    <li>Stock</li>
-                    <li>Facturacion</li>
-                    <li>Configuracion</li>
+                    <li>
+                        <NavLink to='/configuración'>
+                            Configuración
+                        </NavLink>
+                    </li>
                 </ul>
             </nav>
         </div>
