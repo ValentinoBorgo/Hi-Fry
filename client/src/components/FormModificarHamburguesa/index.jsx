@@ -95,10 +95,10 @@ export function ModificarHamburguesa() {
             precioM : datPrecioM,
             llaveidM : key
         })
+        agregarHM(datos);
         console.log(datos);
         dispatch(realizarModificaciones(datos))
         dispatch(modalModificar(!stateModal));
-        agregarHM(datos);
     }
 
     

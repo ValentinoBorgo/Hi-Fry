@@ -21,9 +21,9 @@ export const GetBurgersM = async (idM) =>{
   }
 }
 
-export const agregarHM = async (data) =>{
+export const agregarHM = async (dat) =>{
   try{
-    const hm = await axios.post(`http://localhost:4000/api/hamburguesas/agregadoM`, data);
+    const hm = await axios.post(`http://localhost:4000/api/hamburguesas/agregadoM`, dat);
     console.log(hm.data);
   }catch(error){
     console.log(error);
