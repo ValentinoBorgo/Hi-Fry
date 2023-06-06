@@ -1,31 +1,46 @@
 import React, { useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Configuración() {
 
     const [datosAgregado, setDatosAgregado] = useState({
-        Nombre: '',
-        Carnes: '',
-        Chedar: '',
+        burger: '',
+        carnes: '',
+        chedar: '',
         ingredientes: '',
         precio: '',
         llave: '',
+        pan : '',
         img : ''
     });
 
     const [mostrarAgregado, setMostrarAgregado] = useState(false);
-    const nombre = datosAgregado.Nombre;
+    const nombre = datosAgregado.burger;
     const img = datosAgregado.img;
+    const carnes = datosAgregado.carnes;
+    const chedar = datosAgregado.chedar;
+    const ingre = datosAgregado.ingredientes;
+    const precio = datosAgregado.precio;
+    const panes = 1;
+    const [key, setKey] = useState(datosAgregado.llave);
+
+    const generadorLlave = () =>{
+        const llave = uuidv4();
+        setKey(datosAgregado.llave = llave);
+    }
 
     const handleAgred = (e) => {
         e.preventDefault();
         setMostrarAgregado(!mostrarAgregado);
+        generadorLlave();
         setDatosAgregado({
-            Nombre: nombre,
-            Carnes: '',
-            Chedar: '',
-            ingredientes: '',
-            precio: '',
-            llave: '',
+            burger: nombre,
+            carnes: carnes,
+            chedar: chedar,
+            ingredientes: ingre,
+            precio: precio,
+            llave: key,
+            pan : panes,
             img : img
         })
         console.log(datosAgregado);
@@ -33,12 +48,32 @@ export default function Configuración() {
 
     const handelName = (e) => {
         e.preventDefault();
-        datosAgregado.Nombre = e.target.value;
+        datosAgregado.burger = e.target.value;
     }
 
     const handleImg = (e) =>{
         e.preventDefault(); 
         datosAgregado.img = e.target.value;
+    }
+
+    const handleCarnes = (e) =>{
+        e.preventDefault();
+        datosAgregado.carnes = e.target.value;
+    }
+
+    const handleChedar = (e) =>{
+        e.preventDefault();
+        datosAgregado.chedar = e.target.value;
+    }
+
+    const handleIngredientes = (e) =>{
+        e.preventDefault();
+        datosAgregado.ingredientes = e.target.value;
+    }
+
+    const handlePrecio = (e) =>{
+        e.preventDefault();
+        datosAgregado.precio = e.target.value;
     }
 
     return (
@@ -59,19 +94,23 @@ export default function Configuración() {
                         </div>
                         <div>
                             <label htmlFor="">Carnes : </label>
-                            <input type="number" />
+                            <input type="number" onChange={(e) => handleCarnes(e)}/>
                         </div>
                         <div>
                             <label htmlFor="">Chedar : </label>
-                            <input type="number" />
+                            <input type="number" onChange={(e) => handleChedar(e)}/>
                         </div>
                         <div>
                             <label htmlFor="">Ingredientes : </label>
-                            <input type="text" />
+                            <input type="text" onChange={(e) => handleIngredientes(e)}/>
                         </div>
                         <div>
-                            <label htmlFor="">Llave : </label>
-                            <input type="text" />
+                            <label htmlFor="">Precio : </label>
+                            <input type="text" onChange={(e) => handlePrecio(e)}/>
+                        </div>
+                        <div>
+                            <label htmlFor="" hidden>Llave : </label>
+                            <input type="text" hidden/>
                         </div>
                         <div>
                             <button style={{ color: 'red', borderRadius: '1rem' }}>Agregar</button>
