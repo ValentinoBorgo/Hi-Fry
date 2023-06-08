@@ -38,3 +38,12 @@ export const agregarAListado = async (data) =>{
     console.log(error);
   }
 }
+
+export const agregarNewHamburguesa = async (burger) =>{
+  try{
+    const NewBurga = await axios.post(`http://localhost:4000/api/hamburguesas/agregado`, burger);
+    alert("Hamburguesa Nueva agregada !!!");
+  }catch(error){
+    console.log(error);
+  }
+}

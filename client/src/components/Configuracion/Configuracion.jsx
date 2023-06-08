@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
+import {agregarNewHamburguesa} from '../../redux/actions/index'; 
 
 export default function Configuración() {
 
@@ -9,8 +10,8 @@ export default function Configuración() {
         chedar: '',
         ingredientes: '',
         precio: '',
-        llave: '',
-        pan : '',
+        // llave: '',
+        pan : 1,
         img : ''
     });
 
@@ -21,29 +22,18 @@ export default function Configuración() {
     const chedar = datosAgregado.chedar;
     const ingre = datosAgregado.ingredientes;
     const precio = datosAgregado.precio;
-    const panes = 1;
-    const [key, setKey] = useState(datosAgregado.llave);
+    // const panes = 1;
+    // const [key, setKey] = useState(datosAgregado.llave);
 
-    const generadorLlave = () =>{
-        const llave = uuidv4();
-        setKey(datosAgregado.llave = llave);
-    }
+    // const generadorLlave = () =>{
+    //     const llave = uuidv4();
+    //     setKey(datosAgregado.llave = llave);
+    // }
 
     const handleAgred = (e) => {
         e.preventDefault();
         setMostrarAgregado(!mostrarAgregado);
-        generadorLlave();
-        setDatosAgregado({
-            burger: nombre,
-            carnes: carnes,
-            chedar: chedar,
-            ingredientes: ingre,
-            precio: precio,
-            llave: key,
-            pan : panes,
-            img : img
-        })
-        console.log(datosAgregado);
+        // generadorLlave();
     }
 
     const handelName = (e) => {
@@ -74,6 +64,21 @@ export default function Configuración() {
     const handlePrecio = (e) =>{
         e.preventDefault();
         datosAgregado.precio = e.target.value;
+    }
+
+    const handleNewBurga = (e) =>{
+        e.preventDefault();
+        setMostrarAgregado(!mostrarAgregado);
+        setDatosAgregado({
+            burger: nombre,
+            carnes: carnes,
+            chedar: chedar,
+            ingredientes: ingre,
+            precio: precio,
+            pan : 1,    
+            img : img
+        });
+        agregarNewHamburguesa(datosAgregado);
     }
 
     return (
@@ -113,7 +118,7 @@ export default function Configuración() {
                             <input type="text" hidden/>
                         </div>
                         <div>
-                            <button style={{ color: 'red', borderRadius: '1rem' }}>Agregar</button>
+                            <button onClick={(e) => handleNewBurga(e)} style={{ color: 'red', borderRadius: '1rem' }}>Agregar</button>
                         </div>
                     </div>
                 )
