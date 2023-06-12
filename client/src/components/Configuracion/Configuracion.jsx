@@ -16,6 +16,7 @@ export default function Configuración() {
         img : ''
     });
 
+    const [mostrarEliminar, setMostrarEliminar] = useState(false);
     const [mostrarAgregado, setMostrarAgregado] = useState(false);
     let id = datosAgregado.id;
     const nombre = datosAgregado.burger;
@@ -86,6 +87,15 @@ export default function Configuración() {
         agregarNewHamburguesa(datosAgregado);
     }
 
+    const handleDelete = (e) =>{
+        e.preventDefault();
+        const nombreBurguers = [];
+        useMemo(() =>{
+            
+        })
+        setMostrarEliminar(!mostrarEliminar);
+    }
+
     return (
         <>
             <div>
@@ -142,8 +152,18 @@ export default function Configuración() {
             </div>
             <br />
             <div>
-                <button>Elliminar Hamburguesa</button>
+                <button onClick={(e) => handleDelete(e)}>Elliminar Hamburguesa</button>
             </div>
+            {
+                mostrarEliminar && (
+                    <div>
+                        <label htmlFor="">Ingrese el nombre de la Hamburguesa que quiera eliminar</label>
+                        <div>
+                            <input type="text" />
+                        </div>
+                    </div>
+                )
+            }
         </>
     )
 }

@@ -48,6 +48,14 @@ export const agregarNewHamburguesa = async (burger) =>{
   }
 }
 
+// export const eliminarHamburguesa = async (burger) =>{
+//   try{
+//     const eliminar = axios.delete()
+//   }catch(){
+
+//   }
+// }
+
 export const IdMax = async () =>{
   try{
     const id = await axios.get(`http://localhost:4000/api/hamburguesas/traerIdMax`);
