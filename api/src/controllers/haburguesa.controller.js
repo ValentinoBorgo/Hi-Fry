@@ -170,6 +170,18 @@ const guardarEnLista = async (req,res) =>{
     }
 }
 
+const traerIdMasAltoHamburguesa = async (req, res) =>{
+    try{
+        const connection = await getConnection();
+        const id = await connection.query('SELECT MAX (id) from hamburguesa');
+        console.log(id);
+        res.status(201).json(id).end();
+    }catch(error){
+        res.status(404);
+        console.log(error);
+    }
+}
+
 
 
 module.exports = {
@@ -179,5 +191,6 @@ module.exports = {
     eliminarHamburguesa,
     modificarHamburguesa,
     guardarHamburguesaM,
-    guardarEnLista
+    guardarEnLista,
+    traerIdMasAltoHamburguesa
 };

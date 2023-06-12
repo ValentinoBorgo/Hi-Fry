@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import {agregarNewHamburguesa} from '../../redux/actions/index'; 
+import {IdMax, agregarNewHamburguesa} from '../../redux/actions/index'; 
 
 export default function Configuración() {
 
     const [datosAgregado, setDatosAgregado] = useState({
+        id : '',
         burger: '',
         carnes: '',
         chedar: '',
@@ -16,6 +17,7 @@ export default function Configuración() {
     });
 
     const [mostrarAgregado, setMostrarAgregado] = useState(false);
+    let id = datosAgregado.id;
     const nombre = datosAgregado.burger;
     const img = datosAgregado.img;
     const carnes = datosAgregado.carnes;
@@ -69,7 +71,10 @@ export default function Configuración() {
     const handleNewBurga = (e) =>{
         e.preventDefault();
         setMostrarAgregado(!mostrarAgregado);
+        id = IdMax();
+        id = id + 1;
         setDatosAgregado({
+            id : id,
             burger: nombre,
             carnes: carnes,
             chedar: chedar,

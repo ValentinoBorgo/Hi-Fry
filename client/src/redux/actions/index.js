@@ -42,7 +42,16 @@ export const agregarAListado = async (data) =>{
 export const agregarNewHamburguesa = async (burger) =>{
   try{
     const NewBurga = await axios.post(`http://localhost:4000/api/hamburguesas/agregado`, burger);
-    alert("Hamburguesa Nueva agregada !!!");
+    console.log("Hamburguesa se Agrego");
+  }catch(error){
+    console.log(error);
+  }
+}
+
+export const IdMax = async () =>{
+  try{
+    const id = await axios.get(`http://localhost:4000/api/hamburguesas/traerIdMax`);
+    return id;
   }catch(error){
     console.log(error);
   }
