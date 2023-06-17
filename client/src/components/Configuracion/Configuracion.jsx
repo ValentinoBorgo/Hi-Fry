@@ -1,19 +1,20 @@
 import React, { useMemo, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import {IdMax, agregarNewHamburguesa} from '../../redux/actions/index'; 
+import { GetBurgers, IdMax, agregarNewHamburguesa } from '../../redux/actions/index';
+import { getBurga } from "../../redux/reducer/reducer";
 
 export default function Configuración() {
 
     const [datosAgregado, setDatosAgregado] = useState({
-        id : '',
+        id: '',
         burger: '',
         carnes: '',
         chedar: '',
         ingredientes: '',
         precio: '',
         // llave: '',
-        pan : 1,
-        img : ''
+        pan: 1,
+        img: ''
     });
 
     const [mostrarEliminar, setMostrarEliminar] = useState(false);
@@ -25,18 +26,18 @@ export default function Configuración() {
     const chedar = datosAgregado.chedar;
     const ingre = datosAgregado.ingredientes;
     const precio = datosAgregado.precio;
-    // const panes = 1;
-    // const [key, setKey] = useState(datosAgregado.llave);
 
-    // const generadorLlave = () =>{
-    //     const llave = uuidv4();
-    //     setKey(datosAgregado.llave = llave);
-    // }
+    const nombreBurguers = [];
+
+    useMemo(() => {
+        GetBurgers().then(burga => {
+            nombreBurguers.push(getBurga(burga));
+        })
+    })
 
     const handleAgred = (e) => {
         e.preventDefault();
         setMostrarAgregado(!mostrarAgregado);
-        // generadorLlave();
     }
 
     const handelName = (e) => {
@@ -44,55 +45,56 @@ export default function Configuración() {
         datosAgregado.burger = e.target.value;
     }
 
-    const handleImg = (e) =>{
-        e.preventDefault(); 
+    const handleImg = (e) => {
+        e.preventDefault();
         datosAgregado.img = e.target.value;
     }
 
-    const handleCarnes = (e) =>{
+    const handleCarnes = (e) => {
         e.preventDefault();
         datosAgregado.carnes = e.target.value;
     }
 
-    const handleChedar = (e) =>{
+    const handleChedar = (e) => {
         e.preventDefault();
         datosAgregado.chedar = e.target.value;
     }
 
-    const handleIngredientes = (e) =>{
+    const handleIngredientes = (e) => {
         e.preventDefault();
         datosAgregado.ingredientes = e.target.value;
     }
 
-    const handlePrecio = (e) =>{
+    const handlePrecio = (e) => {
         e.preventDefault();
         datosAgregado.precio = e.target.value;
     }
 
-    const handleNewBurga = (e) =>{
+    const handleNewBurga = (e) => {
         e.preventDefault();
         setMostrarAgregado(!mostrarAgregado);
         id = IdMax();
         id = id + 1;
         setDatosAgregado({
-            id : id,
+            id: id,
             burger: nombre,
             carnes: carnes,
             chedar: chedar,
             ingredientes: ingre,
             precio: precio,
-            pan : 1,    
-            img : img
+            pan: 1,
+            img: img
         });
         agregarNewHamburguesa(datosAgregado);
     }
 
-    const handleDelete = (e) =>{
+    const handleDelete = (e) => {
+        let selec = document.getElementById('eliminar');
         e.preventDefault();
-        const nombreBurguers = [];
-        useMemo(() =>{
-            
-        })
+        for (let i = 0; i < nombreBurguers[0].payload.length; i++) {
+            console.log(nombreBurguers[0].payload[i].burger);
+        }
+        console.log(selec.children);
         setMostrarEliminar(!mostrarEliminar);
     }
 
@@ -110,27 +112,27 @@ export default function Configuración() {
                         </div>
                         <div>
                             <label htmlFor="">Imagen : </label>
-                            <input type="url" onChange={(e) => handleImg(e)}/>
+                            <input type="url" onChange={(e) => handleImg(e)} />
                         </div>
                         <div>
                             <label htmlFor="">Carnes : </label>
-                            <input type="number" onChange={(e) => handleCarnes(e)}/>
+                            <input type="number" onChange={(e) => handleCarnes(e)} />
                         </div>
                         <div>
                             <label htmlFor="">Chedar : </label>
-                            <input type="number" onChange={(e) => handleChedar(e)}/>
+                            <input type="number" onChange={(e) => handleChedar(e)} />
                         </div>
                         <div>
                             <label htmlFor="">Ingredientes : </label>
-                            <input type="text" onChange={(e) => handleIngredientes(e)}/>
+                            <input type="text" onChange={(e) => handleIngredientes(e)} />
                         </div>
                         <div>
                             <label htmlFor="">Precio : </label>
-                            <input type="text" onChange={(e) => handlePrecio(e)}/>
+                            <input type="text" onChange={(e) => handlePrecio(e)} />
                         </div>
                         <div>
                             <label htmlFor="" hidden>Llave : </label>
-                            <input type="text" hidden/>
+                            <input type="text" hidden />
                         </div>
                         <div>
                             <button onClick={(e) => handleNewBurga(e)} style={{ color: 'red', borderRadius: '1rem' }}>Agregar</button>
@@ -157,9 +159,17 @@ export default function Configuración() {
             {
                 mostrarEliminar && (
                     <div>
-                        <label htmlFor="">Ingrese el nombre de la Hamburguesa que quiera eliminar</label>
+                        <label htmlFor="">Elige el nombre de la Hamburguesa que quiera eliminar</label>
                         <div>
-                            <input type="text" />
+                            <select name="" id="eliminar">
+                                <option value="">Modificar Hamburguesa</option>
+                                <option value="">1</option>
+                                <option value="">2</option>
+                                <option value="">3</option>
+                                <option value="">4</option>
+                            </select>
+                            <br />
+                            <button>Aceptar</button>
                         </div>
                     </div>
                 )
