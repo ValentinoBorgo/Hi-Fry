@@ -19,6 +19,7 @@ export default function Configuración() {
 
     const [mostrarEliminar, setMostrarEliminar] = useState(false);
     const [mostrarAgregado, setMostrarAgregado] = useState(false);
+    const [mostrarModificar, setMostrarModificar] = useState(false);
     let id = datosAgregado.id;
     const nombre = datosAgregado.burger;
     const img = datosAgregado.img;
@@ -95,7 +96,15 @@ export default function Configuración() {
     const handleDelete = (e) => {
         setMostrarEliminar(!mostrarEliminar);
         e.preventDefault();
-        nombres.then(n =>{
+        nombres.then(n => {
+            setArrayNombres(n);
+        })
+    }
+
+    const handleModi = (e) =>{
+        setMostrarModificar(!mostrarModificar);
+        e.preventDefault();
+        nombres.then(n => {
             setArrayNombres(n);
         })
     }
@@ -145,16 +154,27 @@ export default function Configuración() {
             }
             <br />
             <div>
+                <button onClick={(e) => handleModi(e)}>Modificar Hamburguesa</button>
+            </div>
+            { mostrarModificar && (
+            <div>
                 <select name="" id="">
-                    <option value="">Modificar Hamburguesa</option>
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                    <option value="">4</option>
+                    <option value="">Modificar Hamburguesa 🍔</option>
+                    <option value="">{arrayNombres[0]}</option>
+                    <option value="">{arrayNombres[1]}</option>
+                    <option value="">{arrayNombres[2]}</option>
+                    <option value="">{arrayNombres[3]}</option>
+                    <option value="">{arrayNombres[4]}</option>
+                    <option value="">{arrayNombres[5]}</option>
+                    <option value="">{arrayNombres[6]}</option>
+                    <option value="">{arrayNombres[7]}</option>
+                    <option value="">{arrayNombres[8]}</option>
+                    <option value="">{arrayNombres[9]}</option>
                 </select>
                 <br />
                 <button>Aceptar</button>
             </div>
+            )}
             <br />
             <div>
                 <button onClick={(e) => handleDelete(e)}>Elliminar Hamburguesa</button>
@@ -162,7 +182,6 @@ export default function Configuración() {
             {
                 mostrarEliminar && (
                     <div>
-                        <label htmlFor="">Elige el nombre de la Hamburguesa que quiera eliminar</label>
                         <div>
                             <select name="" id="eliminar">
                                 <option value="">Seleccione Hamburguesa 🍔</option>
