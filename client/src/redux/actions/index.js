@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { getBurga } from "../reducer/reducer";
 
 
 export const GetBurgers = async () =>{
@@ -60,6 +61,22 @@ export const IdMax = async () =>{
   try{
     const id = await axios.get(`http://localhost:4000/api/hamburguesas/traerIdMax`);
     return id;
+  }catch(error){
+    console.log(error);
+  }
+}
+
+export const buscarNombres = async () =>{
+  try{
+    const nombreBurguers = [];
+    const nombres = [];
+    GetBurgers().then(burga => {
+        nombreBurguers.push(getBurga(burga));
+        for (let i = 0; i < nombreBurguers[0].payload.length; i++) {
+            nombres.push(nombreBurguers[0].payload[i].burger);
+        }
+    })
+    return nombres;
   }catch(error){
     console.log(error);
   }

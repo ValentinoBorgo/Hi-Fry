@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import { GetBurgers, IdMax, agregarNewHamburguesa } from '../../redux/actions/index';
+import { GetBurgers, IdMax, agregarNewHamburguesa, buscarNombres } from '../../redux/actions/index';
 import { getBurga } from "../../redux/reducer/reducer";
 
 export default function Configuración() {
@@ -27,13 +27,15 @@ export default function Configuración() {
     const ingre = datosAgregado.ingredientes;
     const precio = datosAgregado.precio;
 
-    const nombreBurguers = [];
+    // const nombreBurguers = [];
 
-    useMemo(() => {
-        GetBurgers().then(burga => {
-            nombreBurguers.push(getBurga(burga));
-        })
-    })
+    // const nombres = [];
+    // GetBurgers().then(burga => {
+    //     nombreBurguers.push(getBurga(burga));
+    //     for (let i = 0; i < nombreBurguers[0].payload.length; i++) {
+    //         nombres.push(nombreBurguers[0].payload[i].burger);
+    //     }
+    // })
 
     const handleAgred = (e) => {
         e.preventDefault();
@@ -88,15 +90,16 @@ export default function Configuración() {
         agregarNewHamburguesa(datosAgregado);
     }
 
+    let nombres = buscarNombres();
+    const [arrayNombres, setArrayNombres] = useState([]);
     const handleDelete = (e) => {
-        let selec = document.getElementById('eliminar');
-        e.preventDefault();
-        for (let i = 0; i < nombreBurguers[0].payload.length; i++) {
-            console.log(nombreBurguers[0].payload[i].burger);
-        }
-        console.log(selec.children);
         setMostrarEliminar(!mostrarEliminar);
+        e.preventDefault();
+        nombres.then(n =>{
+            setArrayNombres(n);
+        })
     }
+
 
     return (
         <>
@@ -162,11 +165,17 @@ export default function Configuración() {
                         <label htmlFor="">Elige el nombre de la Hamburguesa que quiera eliminar</label>
                         <div>
                             <select name="" id="eliminar">
-                                <option value="">Modificar Hamburguesa</option>
-                                <option value="">1</option>
-                                <option value="">2</option>
-                                <option value="">3</option>
-                                <option value="">4</option>
+                                <option value="">Seleccione Hamburguesa 🍔</option>
+                                <option value="">{arrayNombres[0]}</option>
+                                <option value="">{arrayNombres[1]}</option>
+                                <option value="">{arrayNombres[2]}</option>
+                                <option value="">{arrayNombres[3]}</option>
+                                <option value="">{arrayNombres[4]}</option>
+                                <option value="">{arrayNombres[5]}</option>
+                                <option value="">{arrayNombres[6]}</option>
+                                <option value="">{arrayNombres[7]}</option>
+                                <option value="">{arrayNombres[8]}</option>
+                                <option value="">{arrayNombres[9]}</option>
                             </select>
                             <br />
                             <button>Aceptar</button>
