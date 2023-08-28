@@ -93,7 +93,7 @@ export default function Configuración() {
 
     let nombres = buscarNombres();
     const [arrayNombres, setArrayNombres] = useState([]);
-    
+
     const handleDelete = (e) => {
         setMostrarEliminar(!mostrarEliminar);
         e.preventDefault();
@@ -102,11 +102,13 @@ export default function Configuración() {
         })
     }
 
-    const handleModi = (e) =>{
+    const handleModi = (e) => {
         setMostrarModificar(!mostrarModificar);
         e.preventDefault();
         nombres.then(n => {
+            console.log(n);
             setArrayNombres(n);
+            addNewOption();
         })
     }
 
@@ -171,25 +173,24 @@ export default function Configuración() {
             <div>
                 <button onClick={(e) => handleModi(e)}>Modificar Hamburguesa</button>
             </div>
-            { mostrarModificar && (
-            <div>
-                <select name="" id="optModi">
-                    <option value="">Modificar Hamburguesa 🍔</option>
-                    {addNewOption()}
-                    {/* <option value="">{arrayNombres[0]}</option>
-                    <option value="">{arrayNombres[1]}</option>
-                    <option value="">{arrayNombres[2]}</option>
-                    <option value="">{arrayNombres[3]}</option>
-                    <option value="">{arrayNombres[4]}</option>
-                    <option value="">{arrayNombres[5]}</option>
-                    <option value="">{arrayNombres[6]}</option>
-                    <option value="">{arrayNombres[7]}</option>
-                    <option value="">{arrayNombres[8]}</option>
-                    <option value="">{arrayNombres[9]}</option> */}
-                </select>
-                <br />
-                <button>Aceptar</button>
-            </div>
+            {mostrarModificar && (
+                <div>
+                    <select name="" id="optModi">
+                        <option value="">Modificar Hamburguesa 🍔</option>
+                        {/* <option value="">{arrayNombres[0]}</option>
+                        <option value="">{arrayNombres[1]}</option>
+                        <option value="">{arrayNombres[2]}</option>
+                        <option value="">{arrayNombres[3]}</option>
+                        <option value="">{arrayNombres[4]}</option>
+                        <option value="">{arrayNombres[5]}</option>
+                        <option value="">{arrayNombres[6]}</option>
+                        <option value="">{arrayNombres[7]}</option>
+                        <option value="">{arrayNombres[8]}</option>
+                        <option value="">{arrayNombres[9]}</option> */}
+                    </select>
+                    <br />
+                    <button>Aceptar</button>
+                </div>
             )}
             <br />
             <div>
