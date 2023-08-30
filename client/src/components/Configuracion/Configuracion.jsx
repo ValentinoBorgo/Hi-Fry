@@ -132,7 +132,17 @@ export default function Configuración() {
         }
     }
 
-    // addNewOption();
+    const handleConfirmOTP = (e) =>{
+        e.preventDefault();
+        let optModi = document.getElementById('optModi');
+        console.log(optModi.value);
+    }
+
+    const handleConfirmElim = (e) =>{
+        e.preventDefault();
+        let eliminar = document.getElementById('eliminar');
+        console.log(eliminar.value);
+    }
 
 
     return (
@@ -188,7 +198,7 @@ export default function Configuración() {
                         <option value="">Modificar Hamburguesa 🍔</option>
                     </select>
                     <br />
-                    <button>Aceptar</button>
+                    <button onClick={(e) => handleConfirmOTP(e)}>Aceptar</button>
                 </div>
             )}
             <br />
@@ -203,7 +213,7 @@ export default function Configuración() {
                                 <option value="">Seleccione Hamburguesa 🍔</option>
                             </select>
                             <br />
-                            <button>Aceptar</button>
+                            <button onClick={(e) => handleConfirmElim(e)}>Aceptar</button>
                         </div>
                     </div>
                 )
