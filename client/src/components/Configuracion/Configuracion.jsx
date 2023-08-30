@@ -92,13 +92,14 @@ export default function Configuración() {
     }
 
     let nombres = buscarNombres();
-    const [arrayNombres, setArrayNombres] = useState([]);
+    let arrayNombres = [];
 
     const handleDelete = (e) => {
         setMostrarEliminar(!mostrarEliminar);
         e.preventDefault();
         nombres.then(n => {
-            setArrayNombres(n);
+            arrayNombres = n;
+            addNewOptionELIM();
         })
     }
 
@@ -106,22 +107,29 @@ export default function Configuración() {
         setMostrarModificar(!mostrarModificar);
         e.preventDefault();
         nombres.then(n => {
-            console.log(n);
-            setArrayNombres(n);
-            addNewOption();
+            arrayNombres = n;
+            addNewOptionOTP();
         })
     }
 
-    function addNewOption(){
+    function addNewOptionOTP(){
         let optModi = document.getElementById('optModi');
         for(let i = 0; i < arrayNombres.length; i++){
             let nuevaOpcion = document.createElement('option');
             nuevaOpcion.innerHTML = arrayNombres[i];
             nuevaOpcion.value = arrayNombres[i];
-            console.log(nuevaOpcion);
             optModi.appendChild(nuevaOpcion);
         }
-        console.log(optModi);
+    }
+
+    function addNewOptionELIM(){
+        let eliminar = document.getElementById('eliminar');
+        for(let i = 0; i < arrayNombres.length; i++){
+            let nuevaOpcion = document.createElement('option');
+            nuevaOpcion.innerHTML = arrayNombres[i];
+            nuevaOpcion.value = arrayNombres[i];
+            eliminar.appendChild(nuevaOpcion);
+        }
     }
 
     // addNewOption();
@@ -173,20 +181,11 @@ export default function Configuración() {
             <div>
                 <button onClick={(e) => handleModi(e)}>Modificar Hamburguesa</button>
             </div>
-            {mostrarModificar && (
+            {
+                mostrarModificar && (
                 <div>
                     <select name="" id="optModi">
                         <option value="">Modificar Hamburguesa 🍔</option>
-                        {/* <option value="">{arrayNombres[0]}</option>
-                        <option value="">{arrayNombres[1]}</option>
-                        <option value="">{arrayNombres[2]}</option>
-                        <option value="">{arrayNombres[3]}</option>
-                        <option value="">{arrayNombres[4]}</option>
-                        <option value="">{arrayNombres[5]}</option>
-                        <option value="">{arrayNombres[6]}</option>
-                        <option value="">{arrayNombres[7]}</option>
-                        <option value="">{arrayNombres[8]}</option>
-                        <option value="">{arrayNombres[9]}</option> */}
                     </select>
                     <br />
                     <button>Aceptar</button>
@@ -202,16 +201,6 @@ export default function Configuración() {
                         <div>
                             <select name="" id="eliminar">
                                 <option value="">Seleccione Hamburguesa 🍔</option>
-                                <option value="">{arrayNombres[0]}</option>
-                                <option value="">{arrayNombres[1]}</option>
-                                <option value="">{arrayNombres[2]}</option>
-                                <option value="">{arrayNombres[3]}</option>
-                                <option value="">{arrayNombres[4]}</option>
-                                <option value="">{arrayNombres[5]}</option>
-                                <option value="">{arrayNombres[6]}</option>
-                                <option value="">{arrayNombres[7]}</option>
-                                <option value="">{arrayNombres[8]}</option>
-                                <option value="">{arrayNombres[9]}</option>
                             </select>
                             <br />
                             <button>Aceptar</button>
