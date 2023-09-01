@@ -49,14 +49,6 @@ export const agregarNewHamburguesa = async (burger) =>{
   }
 }
 
-// export const eliminarHamburguesa = async (burger) =>{
-//   try{
-//     const eliminar = axios.delete()
-//   }catch(){
-
-//   }
-// }
-
 export const IdMax = async () =>{
   try{
     const id = await axios.get(`http://localhost:4000/api/hamburguesas/traerIdMax`);
@@ -77,6 +69,26 @@ export const buscarNombres = async () =>{
         }
     })
     return nombres;
+  }catch(error){
+    console.log(error);
+  }
+}
+
+export const eliminarHamburguesa = async (nombre) =>{
+  let id = '';
+  try{
+    GetBurgers().then(burga =>{
+      console.log(burga);
+      for(let i = 0; i <= burga.length; i++){
+        if(burga[i].burger == nombre){
+          id = burga[i].id;
+          console.log(burga[i].id);
+          const elim = axios.delete(`http://localhost:4000/api/hamburguesas/${id}`);
+          alert("Hamburguesa eliminada 😄");
+          return;
+        }
+      }
+    })
   }catch(error){
     console.log(error);
   }

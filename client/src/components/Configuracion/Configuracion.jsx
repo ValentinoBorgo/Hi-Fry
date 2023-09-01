@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import { GetBurgers, IdMax, agregarNewHamburguesa, buscarNombres } from '../../redux/actions/index';
+import { GetBurgers, IdMax, agregarNewHamburguesa, buscarNombres, eliminarHamburguesa } from '../../redux/actions/index';
 import { getBurga } from "../../redux/reducer/reducer";
 
 export default function Configuración() {
@@ -20,6 +20,8 @@ export default function Configuración() {
     const [mostrarEliminar, setMostrarEliminar] = useState(false);
     const [mostrarAgregado, setMostrarAgregado] = useState(false);
     const [mostrarModificar, setMostrarModificar] = useState(false);
+    const [opcionesModificar, setOpcionesModificar] = useState(false);
+
     let id = datosAgregado.id;
     const nombre = datosAgregado.burger;
     const img = datosAgregado.img;
@@ -27,16 +29,6 @@ export default function Configuración() {
     const chedar = datosAgregado.chedar;
     const ingre = datosAgregado.ingredientes;
     const precio = datosAgregado.precio;
-
-    // const nombreBurguers = [];
-
-    // const nombres = [];
-    // GetBurgers().then(burga => {
-    //     nombreBurguers.push(getBurga(burga));
-    //     for (let i = 0; i < nombreBurguers[0].payload.length; i++) {
-    //         nombres.push(nombreBurguers[0].payload[i].burger);
-    //     }
-    // })
 
     const handleAgred = (e) => {
         e.preventDefault();
@@ -112,9 +104,9 @@ export default function Configuración() {
         })
     }
 
-    function addNewOptionOTP(){
+    function addNewOptionOTP() {
         let optModi = document.getElementById('optModi');
-        for(let i = 0; i < arrayNombres.length; i++){
+        for (let i = 0; i < arrayNombres.length; i++) {
             let nuevaOpcion = document.createElement('option');
             nuevaOpcion.innerHTML = arrayNombres[i];
             nuevaOpcion.value = arrayNombres[i];
@@ -122,9 +114,9 @@ export default function Configuración() {
         }
     }
 
-    function addNewOptionELIM(){
+    function addNewOptionELIM() {
         let eliminar = document.getElementById('eliminar');
-        for(let i = 0; i < arrayNombres.length; i++){
+        for (let i = 0; i < arrayNombres.length; i++) {
             let nuevaOpcion = document.createElement('option');
             nuevaOpcion.innerHTML = arrayNombres[i];
             nuevaOpcion.value = arrayNombres[i];
@@ -132,16 +124,20 @@ export default function Configuración() {
         }
     }
 
-    const handleConfirmOTP = (e) =>{
+    const [burga, setBurga] = useState('');
+    const handleConfirmOTP = (e) => {
         e.preventDefault();
         let optModi = document.getElementById('optModi');
+        setOpcionesModificar(!opcionesModificar);
+        setBurga(optModi.value);
         console.log(optModi.value);
     }
 
-    const handleConfirmElim = (e) =>{
+    const handleConfirmElim = (e) => {
         e.preventDefault();
         let eliminar = document.getElementById('eliminar');
         console.log(eliminar.value);
+        eliminarHamburguesa(eliminar.value);
     }
 
 
@@ -193,31 +189,63 @@ export default function Configuración() {
             </div>
             {
                 mostrarModificar && (
-                <div>
-                    <select name="" id="optModi">
-                        <option value="">Modificar Hamburguesa 🍔</option>
-                    </select>
-                    <br />
-                    <button onClick={(e) => handleConfirmOTP(e)}>Aceptar</button>
-                </div>
-            )}
+                    <div>
+                        <select name="" id="optModi">
+                            <option value="">Modificar Hamburguesa 🍔</option>
+                        </select>
+                        <br />
+                        <button onClick={(e) => handleConfirmOTP(e)}>Aceptar</button>
+                    </div>
+                )}
+            <div>
+                {
+                    opcionesModificar && (
+                        <div>
+                            <h3>Modifique su {burga} 🍔</h3>
+                            <div>
+                                <label htmlFor="">Nombre : </label>
+                                <input type="text" />
+                            </div>
+                            <div>
+                                <label htmlFor="">Imagen : </label>
+                                <input type="url" />
+                            </div>
+                            <div>
+                                <label htmlFor="">Carnes : </label>
+                                <input type="number" />
+                            </div>
+                            <div>
+                                <label htmlFor="">Chedar : </label>
+                                <input type="number" />
+                            </div>
+                            <div>
+                                <label htmlFor="">Ingredientes : </label>
+                                <input type="text" />
+                            </div>
+                            <div>
+                                <label htmlFor="">Precio : </label>
+                                <input type="text" />
+                            </div>
+                        </div>   
+                )}
+        </div > 
             <br />
             <div>
                 <button onClick={(e) => handleDelete(e)}>Elliminar Hamburguesa</button>
             </div>
-            {
-                mostrarEliminar && (
-                    <div>
-                        <div>
-                            <select name="" id="eliminar">
-                                <option value="">Seleccione Hamburguesa 🍔</option>
-                            </select>
-                            <br />
-                            <button onClick={(e) => handleConfirmElim(e)}>Aceptar</button>
-                        </div>
-                    </div>
-                )
-            }
+    {
+        mostrarEliminar && (
+            <div>
+                <div>
+                    <select name="" id="eliminar">
+                        <option value="">Seleccione Hamburguesa 🍔</option>
+                    </select>
+                    <br />
+                    <button onClick={(e) => handleConfirmElim(e)}>Aceptar</button>
+                </div>
+            </div>
+        )
+    }
         </>
     )
 }
