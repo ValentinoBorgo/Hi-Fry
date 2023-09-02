@@ -21,6 +21,7 @@ export default function Configuración() {
     const [mostrarAgregado, setMostrarAgregado] = useState(false);
     const [mostrarModificar, setMostrarModificar] = useState(false);
     const [opcionesModificar, setOpcionesModificar] = useState(false);
+    const [propModi, setPropModi] = useState(false);
 
     let id = datosAgregado.id;
     const nombre = datosAgregado.burger;
@@ -96,6 +97,9 @@ export default function Configuración() {
     }
 
     const handleModi = (e) => {
+        if (opcionesModificar == true) {
+            setOpcionesModificar(false);
+        }
         setMostrarModificar(!mostrarModificar);
         e.preventDefault();
         nombres.then(n => {
@@ -128,16 +132,43 @@ export default function Configuración() {
     const handleConfirmOTP = (e) => {
         e.preventDefault();
         let optModi = document.getElementById('optModi');
-        setOpcionesModificar(!opcionesModificar);
-        setBurga(optModi.value);
-        console.log(optModi.value);
+        if (optModi.value == '') {
+            alert("Debe seleccionar una hamburguesa para modificar !");
+        } else {
+            setOpcionesModificar(!opcionesModificar);
+            setBurga(optModi.value);
+        }
     }
 
     const handleConfirmElim = (e) => {
         e.preventDefault();
         let eliminar = document.getElementById('eliminar');
-        console.log(eliminar.value);
         eliminarHamburguesa(eliminar.value);
+    }
+
+    const [estadoNombreProp, setEstadoNombreProp] = useState('');
+    const handlePropModificar = (e) =>{
+        e.preventDefault();
+        let propmodi = document.getElementById('propModificar');
+        setEstadoNombreProp(propmodi.value);
+        console.log(estadoNombreProp);
+        console.log(propmodi.value);
+        if(propmodi.value == ''){
+            alert("Por favor elija una propiedad a modificar");
+        }else{
+            if(propModi == true){
+                propModi == true
+            }else{
+                setPropModi(!propModi);
+            }
+        }
+    }
+
+    const MODIFICACION = (e) =>{
+        //HACER QUE SE CONECTE CON LOS CONTROLADORES Y HAGAN EL CAMBIO EFECTIVO EN LA BD
+        e.preventDefault();
+        let propYaModificada = document.getElementById('propiedadModificada');
+        console.log(propYaModificada.value);
     }
 
 
@@ -202,50 +233,47 @@ export default function Configuración() {
                     opcionesModificar && (
                         <div>
                             <h3>Modifique su {burga} 🍔</h3>
-                            <div>
-                                <label htmlFor="">Nombre : </label>
-                                <input type="text" />
-                            </div>
-                            <div>
-                                <label htmlFor="">Imagen : </label>
-                                <input type="url" />
-                            </div>
-                            <div>
-                                <label htmlFor="">Carnes : </label>
-                                <input type="number" />
-                            </div>
-                            <div>
-                                <label htmlFor="">Chedar : </label>
-                                <input type="number" />
-                            </div>
-                            <div>
-                                <label htmlFor="">Ingredientes : </label>
-                                <input type="text" />
-                            </div>
-                            <div>
-                                <label htmlFor="">Precio : </label>
-                                <input type="text" />
-                            </div>
+                            <label htmlFor="">Eliga la propiedad a modificar :  </label>
+                            <select name="" id="propModificar" onChange={(e) => handlePropModificar(e)}>
+                                <option value="">Elija</option>
+                                <option value="burger">Nombre</option>
+                                <option value="img">Imagen</option>
+                                <option value="carnes">Carnes</option>
+                                <option value="chedar">Chedar</option>
+                                <option value="ingredientes">Ingredientes</option>
+                                <option value="precio">Precio</option>
+                            </select>
+                        </div>
+                    )}
+            </div >
+            <div>
+                {
+                    propModi && (
+                        <div>
+                            <label htmlFor=""> {estadoNombreProp} </label>
+                            <input type="text" id="propiedadModificada"/>
+                            <br />
+                            <button onClick={(e) => MODIFICACION(e)}> Realizar Modificacion </button>
                         </div>   
                 )}
-        </div > 
+            </div>
             <br />
             <div>
                 <button onClick={(e) => handleDelete(e)}>Elliminar Hamburguesa</button>
             </div>
-    {
-        mostrarEliminar && (
-            <div>
-                <div>
-                    <select name="" id="eliminar">
-                        <option value="">Seleccione Hamburguesa 🍔</option>
-                    </select>
-                    <br />
-                    <button onClick={(e) => handleConfirmElim(e)}>Aceptar</button>
-                </div>
-            </div>
-        )
-    }
+            {
+                mostrarEliminar && (
+                    <div>
+                        <div>
+                            <select name="" id="eliminar">
+                                <option value="">Seleccione Hamburguesa 🍔</option>
+                            </select>
+                            <br />
+                            <button onClick={(e) => handleConfirmElim(e)}>Aceptar</button>
+                        </div>
+                    </div>
+                )
+            }
         </>
     )
 }
