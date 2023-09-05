@@ -97,6 +97,20 @@ const modificarHamburguesa = async (req, res) => {
     }
 }
 
+const modificarUnCampo = async (req, res) =>{
+    try{
+        const { nombre } = req.params;
+
+        const {propiedad, nombrePropiedad} = req.body;
+
+        const connection = await getConnection();
+        const found = await connection.query(`UPDATE hamburguesa SET ${nombrePropiedad} = ? WHERE burger = ?`, [propiedad, nombre]);
+        res.json({ message: 'Campo actualizado correctamente' });
+    }catch(error){
+        res.status(500).json({ message: 'Error interno del servidor' });
+    }
+}
+
 const guardarHamburguesaM = async (req, res) => {
     try {
         
@@ -192,5 +206,6 @@ module.exports = {
     modificarHamburguesa,
     guardarHamburguesaM,
     guardarEnLista,
-    traerIdMasAltoHamburguesa
+    traerIdMasAltoHamburguesa,
+    modificarUnCampo
 };

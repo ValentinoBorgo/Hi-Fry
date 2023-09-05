@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import { GetBurgers, IdMax, agregarNewHamburguesa, buscarNombres, eliminarHamburguesa } from '../../redux/actions/index';
+import { GetBurgers, IdMax, agregarNewHamburguesa, buscarNombres, eliminarHamburguesa, modificarCampo } from '../../redux/actions/index';
 import { getBurga } from "../../redux/reducer/reducer";
 
 export default function Configuración() {
@@ -164,11 +164,17 @@ export default function Configuración() {
         }
     }
 
+    
     const MODIFICACION = (e) =>{
         //HACER QUE SE CONECTE CON LOS CONTROLADORES Y HAGAN EL CAMBIO EFECTIVO EN LA BD
         e.preventDefault();
         let propYaModificada = document.getElementById('propiedadModificada');
-        console.log(propYaModificada.value);
+        let obj = {
+            nombre : burga,
+            nombrePropiedad : estadoNombreProp,
+            propiedad : propYaModificada.value
+        }
+        modificarCampo(obj);
     }
 
 

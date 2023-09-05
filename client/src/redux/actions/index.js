@@ -93,3 +93,14 @@ export const eliminarHamburguesa = async (nombre) =>{
     console.log(error);
   }
 }
+
+//SOLUCIONAR ERROR DE PETICION
+  export const modificarCampo = async (propID) =>{
+    try{
+      const { nombre, propiedad, nombrePropiedad } = propID;
+      const modi = await axios.put(`http://localhost:4000/api/hamburguesas/modificarCampo/${nombre}`, [propiedad, nombrePropiedad]);
+      alert("Modificacion realizada efectivamente");
+    }catch(error){
+      console.log(error);
+    }
+  }

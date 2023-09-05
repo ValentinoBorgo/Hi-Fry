@@ -11,6 +11,7 @@ router.get('/:id', hamburguesas.obtenerUnaHamburguesa);
 router.post('/agregado', hamburguesas.agregarHamburguesas);
 router.delete('/:id', hamburguesas.eliminarHamburguesa);
 router.put('/:id', hamburguesas.modificarHamburguesa);
+router.put('/modificarCampo/:nombre', hamburguesas.modificarUnCampo);
 router.post('/agregadoM', hamburguesas.guardarHamburguesaM);
 router.post('/listadoPedidos', hamburguesas.guardarEnLista);
 
