@@ -97,19 +97,34 @@ const modificarHamburguesa = async (req, res) => {
     }
 }
 
-const modificarUnCampo = async (req, res) =>{
-    try{
+ const modificarUnCampo = async (req, res) => {
+    try {
         const { nombre } = req.params;
-
-        const {propiedad, nombrePropiedad} = req.body;
-
+        const { propiedad, nombrePropiedad } = req.body;
+        console.log(nombre + " " + propiedad + " " + nombrePropiedad);
         const connection = await getConnection();
-        const found = await connection.query(`UPDATE hamburguesa SET ${nombrePropiedad} = ? WHERE burger = ?`, [propiedad, nombre]);
+        // Corrección: Utiliza signos de interrogación para los valores de los parámetros
+        const found = await connection.query('UPDATE hamburguesa SET ?? = ? WHERE burger = ?', [nombrePropiedad, propiedad, nombre]);
         res.json({ message: 'Campo actualizado correctamente' });
-    }catch(error){
+    } catch (error) {
         res.status(500).json({ message: 'Error interno del servidor' });
     }
-}
+ }
+
+// const modificarUnCampo = async (req, res) =>{
+//     try{
+//         const { nombre } = req.params;
+
+//         const {propiedad, nombrePropiedad} = req.body;
+
+//         const connection = await getConnection();
+//         // CAMBIAR EL IGUAL Y EL SIGNO DE PREGUNTA
+//         const found = await connection.query(`UPDATE hamburguesa SET ${nombrePropiedad} = ? WHERE burger = ?`, [propiedad, nombre]);
+//         res.json({ message: 'Campo actualizado correctamente' });
+//     }catch(error){
+//         res.status(500).json({ message: 'Error interno del servidor' });
+//     }
+// }
 
 const guardarHamburguesaM = async (req, res) => {
     try {
