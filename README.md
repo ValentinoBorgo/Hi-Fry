@@ -5,7 +5,7 @@
 Este repositorio contiene una app web que simula una pequeña parte de funcionalidades que podria tener un negocio de comida rapida, como agendar pedidos de hamburguesas, eliminarlas, agregar hamburguesas al catalogo,
 modificarlas, y eliminarlas.
 
-## Instalacion
+## Instalación
 1 - Clonar el repositorio</br>
 2 - Ejecutar en la carpeta del proyecto : npm install </br>
 3 - Levantar un servidor local en XAMPP</br>
