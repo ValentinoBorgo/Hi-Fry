@@ -6,12 +6,12 @@ Este repositorio contiene una app web que simula una pequeña parte de funcional
 modificarlas, y eliminarlas.
 
 ## Instalacion
-1 - Clonar el repositorio
-2 - Ejecutar en la carpeta del proyecto : npm install 
-3 - Levantar un servidor local en XAMPP
-4 - Crear una base de datos con el nombre : restapi_hifry
-5 - Posicionarse sobre la carpeta api y ejecutar el comando npm run dev, y hacer lo mismo en la carpeta client
-6 - Presionar la letra h para ir a "help" en la terminal y por ultimo letra o "open" y se abrira la web en el navegador
+1 - Clonar el repositorio</br>
+2 - Ejecutar en la carpeta del proyecto : npm install </br>
+3 - Levantar un servidor local en XAMPP</br>
+4 - Crear una base de datos con el nombre : restapi_hifry</br>
+5 - Posicionarse sobre la carpeta api y ejecutar el comando npm run dev, y hacer lo mismo en la carpeta client</br>
+6 - Presionar la letra h para ir a "help" en la terminal y por ultimo letra o "open" y se abrira la web en el navegador</br>
 
 ## Tecnologías utilizadas
 
