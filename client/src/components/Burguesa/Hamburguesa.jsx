@@ -24,7 +24,7 @@ export const Burger = ({ Burgers }) => {
     }
 
     return (
-        <article>
+        <article style={{ display : "flex", flexWrap : "wrap", justifyContent : "space-around", padding : '6rem'}}>
             {Burgers?.map(h => {
                 return (<DestrucBurguesa
                     id={h.id}
