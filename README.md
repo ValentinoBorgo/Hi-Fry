@@ -1,19 +1,19 @@
 # Hi-Fry 🍔
 
-## Descripción
+## Description
 
-Este repositorio contiene una app web que simula una pequeña parte de funcionalidades que podria tener un negocio de comida rapida, como agendar pedidos de hamburguesas, eliminarlas, agregar hamburguesas al catalogo,
-modificarlas, y eliminarlas.
+This repository contains a web app that simulates a small part of the functionalities that a fast food business could have, such as scheduling hamburger orders, deleting them, adding hamburgers to the catalog, modifying them, and deleting them,
+modify them, and delete them.
 
-## Instalación
-1 - Clonar el repositorio</br>
-2 - Ejecutar en la carpeta del proyecto : npm install </br>
-3 - Levantar un servidor local en XAMPP</br>
-4 - Crear una base de datos con el nombre : restapi_hifry</br>
-5 - Posicionarse sobre la carpeta api y ejecutar el comando npm run dev, y hacer lo mismo en la carpeta client</br>
-6 - Presionar la letra h para ir a "help" en la terminal y por ultimo letra o "open" y se abrira la web en el navegador</br>
+## Installation
+1 - Clone the repository</br>
+2 - Run in the project folder: npm install </br>
+3 - Start a local server in XAMPP</br>
+4 - Create a database named: restapi_hifry</br>
+5 - Navigate to the api folder and run the command npm run dev, and do the same in the client folder</br>
+6 - Press the letter h to go to "help" in the terminal and finally the letter o to "open" and the web will open in the browser</br>
 
-## Tecnologías utilizadas
+## Technologies used
 
 - ![JavaScript](https://img.shields.io/badge/-JavaScript-333333?style=flat&logo=javascript)</br>
 - ![React](https://img.shields.io/badge/-React-333333?style=flat&logo=react)</br>
@@ -22,6 +22,6 @@ modificarlas, y eliminarlas.
 - ![Express](https://img.shields.io/badge/-Express-333333?style=flat&logo=express)</br>
 - ![MySQL](https://img.shields.io/badge/-MySQLl-333333?style=flat&logo=MySQL)</br>
 
-## Contribuciones
+## Contributions
 
-Las contribuciones son siempre bienvenidas. Si encuentras algún problema o tienes alguna sugerencia, no dudes en abrir un issue o enviar un pull request.
+Contributions are always welcome. If you encounter any problems or have any suggestions, feel free to open an issue or send a pull request.
